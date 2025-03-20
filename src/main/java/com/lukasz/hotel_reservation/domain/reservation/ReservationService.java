@@ -1,12 +1,17 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.DuplicateReservationException;
+import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomRepository;
 import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -24,15 +29,62 @@ class ReservationService {
         Room room = getAvailableRoom(reservation);
         updateRoomStatus(room);
         return saveReservation(reservation);
+
     }
 
-    private Room getAvailableRoom(Reservation reservation){
+    public void cancelReservation(UUID reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(ReservationNotFoundException::new);
+
+        Room room = reservation.getRoom();
+        room.setStatus(RoomStatus.AVAILABLE);
+        roomRepository.save(room);
+
+        reservation.setStatus(ReservationStatus.CANCELLED);
+        Reservation reservationSaved = reservationRepository.save(reservation);
+
+        log.info("Reservation id: {} cancelled, room id: {} is now available", reservationSaved.getId(), room.getId());
+    }
+
+    public void cancelReservation() {
+        List<Reservation> reservations = reservationRepository.findAll();
+        if (reservations.isEmpty()) {
+            throw new ReservationNotFoundException();
+        }
+
+        savedCancelReservation(reservations);
+    }
+
+    private void savedCancelReservation(List<Reservation> reservations) {
+        reservations.stream()
+                .filter(Objects::nonNull)
+                .forEach(reservation -> {
+                    Room room = savedAvailableRoom(reservation);
+                    savedCanceledReservation(reservation, room);
+                });
+    }
+
+    private void savedCanceledReservation(Reservation reservation, Room room) {
+        reservation.setStatus(ReservationStatus.CANCELLED);
+        Reservation reservationSaved = reservationRepository.save(reservation);
+
+        log.info("Reservation: {} cancelled, room: {}", reservationSaved, room);
+    }
+
+    private Room savedAvailableRoom(Reservation reservation) {
+        Room room = reservation.getRoom();
+        room.setStatus(RoomStatus.AVAILABLE);
+        roomRepository.save(room);
+        return room;
+    }
+
+    private Room getAvailableRoom(Reservation reservation) {
         return roomRepository.findById(reservation.getRoom().getId())
                 .filter(room -> room.getStatus().equals(RoomStatus.AVAILABLE))
                 .orElseThrow(RoomNotFoundException::new);
     }
 
-    private void updateRoomStatus(Room room){
+    private void updateRoomStatus(Room room) {
         room.setStatus(RoomStatus.RESERVED);
         roomRepository.save(room);
     }
@@ -45,7 +97,7 @@ class ReservationService {
         }
     }
 
-    private ReservationResponse saveReservation(Reservation reservation){
+    private ReservationResponse saveReservation(Reservation reservation) {
         reservation.setRoom(reservation.getRoom());
         Reservation reservationSaved = reservationRepository.save(reservation);
         log.info("Reservation saved: {}", reservationSaved);
