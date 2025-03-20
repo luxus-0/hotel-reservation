@@ -5,8 +5,10 @@ import com.lukasz.hotel_reservation.domain.room.Room;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -17,40 +19,21 @@ import java.util.UUID;
  */
 
 @Entity
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
     @Id
     private UUID id;
     private ReservationStatus status;
-    @OneToOne
-    private ReservationDate date;
     @ManyToOne
     private Guest guest;
     @ManyToOne
     private Room room;
-
-    public Reservation() {
-    }
-
-
-    public UUID getId() {
-        return id;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public ReservationDate getDate() {
-        return date;
-    }
-
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
+    private LocalDate checkIn;
+    private LocalDate checkOut;
+    private LocalDateTime createdAt;
 }
 
 
