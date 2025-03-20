@@ -20,30 +20,39 @@ class ReservationService {
     }
 
     public ReservationResponse createReservation(Reservation reservation) {
+        validateDuplicatedReservation(reservation);
+        Room room = getAvailableRoom(reservation);
+        updateRoomStatus(room);
+        return saveReservation(reservation);
+    }
+
+    private Room getAvailableRoom(Reservation reservation){
+        return roomRepository.findById(reservation.getRoom().getId())
+                .filter(room -> room.getStatus().equals(RoomStatus.AVAILABLE))
+                .orElseThrow(RoomNotFoundException::new);
+    }
+
+    private void updateRoomStatus(Room room){
+        room.setStatus(RoomStatus.RESERVED);
+        roomRepository.save(room);
+    }
+
+    private void validateDuplicatedReservation(Reservation reservation) {
         if (reservationRepository.existsByRoom_IdAndGuest_Id(
                 reservation.getRoom().getId(),
                 reservation.getGuest().getId())) {
             throw new DuplicateReservationException("Guest already has a reservation for this room");
         }
-
-        return roomRepository.findById(reservation.getRoom().getId())
-                .filter(room -> room.getStatus().equals(RoomStatus.AVAILABLE))
-                .map(room -> {
-
-                    room.setStatus(RoomStatus.RESERVED);
-                    Room savedRoom = roomRepository.save(room);
-                    log.info("Room {} has been reserved", savedRoom);
-
-                    reservation.setRoom(savedRoom);
-                    Reservation savedReservation = reservationRepository.save(reservation);
-                    log.info("Reservation {} has been created", savedReservation);
-
-                    return toReservationResponse(savedReservation);
-                })
-                .orElseThrow(() -> new RoomNotFoundException("Room not found"));
     }
 
-    private ReservationResponse toReservationResponse(Reservation savedReservation) {
+    private ReservationResponse saveReservation(Reservation reservation){
+        reservation.setRoom(reservation.getRoom());
+        Reservation reservationSaved = reservationRepository.save(reservation);
+        log.info("Reservation saved: {}", reservationSaved);
+        return getReservation(reservation);
+    }
+
+    private ReservationResponse getReservation(Reservation savedReservation) {
         return ReservationResponse.builder()
                 .status(savedReservation.getStatus())
                 .guestId(savedReservation.getGuest().getId())
