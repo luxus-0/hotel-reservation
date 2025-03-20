@@ -8,12 +8,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Guest {
     @Id
     private UUID id;
@@ -26,41 +31,4 @@ public class Guest {
     private Contact contact;
     @OneToOne
     private Document document;
-    @OneToMany
-    private List<Reservation> reservations;
-
-    public Guest() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
 }
