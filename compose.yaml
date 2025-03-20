@@ -13,19 +13,3 @@ services:
       - "5432:5432"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: java
-    container_name: java
-    restart: always
-    depends_on:
-      - postgres
-    env_file:
-      - postgres.env
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/hotel
-    ports:
-      - "8080:8080"
