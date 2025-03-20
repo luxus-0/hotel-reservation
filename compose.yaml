@@ -26,6 +26,6 @@ services:
     env_file:
       - postgres.env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/hotel
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/hotel
     ports:
       - "8080:8080"
