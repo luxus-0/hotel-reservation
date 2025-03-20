@@ -5,7 +5,10 @@ import com.lukasz.hotel_reservation.domain.room.Room;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,8 +34,11 @@ public class Reservation {
     private Guest guest;
     @ManyToOne
     private Room room;
+    @FutureOrPresent
     private LocalDate checkIn;
+    @Future
     private LocalDate checkOut;
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }
 
