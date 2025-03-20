@@ -5,6 +5,7 @@ import com.lukasz.hotel_reservation.domain.document.Document;
 import com.lukasz.hotel_reservation.domain.document.DocumentType;
 import com.lukasz.hotel_reservation.domain.guest.Guest;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.DuplicateReservationException;
+import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomRepository;
 import com.lukasz.hotel_reservation.domain.room.RoomStatus;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,7 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ReservationServiceTest {
+class ReservationServiceTest extends ReservationServiceTestConstant {
 
     @Mock
     private ReservationRepository reservationRepository;
@@ -77,11 +79,12 @@ class ReservationServiceTest {
                 .status(ReservationStatus.CONFIRMED)
                 .createdAt(LocalDateTime.now())
                 .build();
+
     }
 
     @Test
     void shouldCreateReservationSuccessfully() {
-        UUID roomId =  UUID.fromString("11111111-1111-1111-1111-111111111111");
+        UUID roomId = UUID.fromString("11111111-1111-1111-1111-111111111111");
         UUID guestId = UUID.fromString("22222222-2222-2222-2222-222222222222");
 
         when(reservationRepository.existsByRoom_IdAndGuest_Id(roomId, guestId)).thenReturn(false);
@@ -103,8 +106,8 @@ class ReservationServiceTest {
     }
 
     @Test
-    void shouldThrowDuplicateReservationExceptionWhenRoomIdAndGuestIdAlreadyExists(){
-        UUID roomId =  UUID.fromString("11111111-1111-1111-1111-111111111111");
+    void shouldThrowDuplicateReservationExceptionWhenRoomIdAndGuestIdAlreadyExists() {
+        UUID roomId = UUID.fromString("11111111-1111-1111-1111-111111111111");
         UUID guestId = UUID.fromString("22222222-2222-2222-2222-222222222222");
 
         when(reservationRepository.existsByRoom_IdAndGuest_Id(roomId, guestId)).thenReturn(true);
@@ -118,9 +121,10 @@ class ReservationServiceTest {
         verify(roomRepository, never()).save(any(Room.class));
 
     }
+
     @Test
     void shouldThrowRoomFoundException() {
-        UUID roomId =  UUID.fromString("11111111-1111-1111-1111-111111111111");
+        UUID roomId = UUID.fromString("11111111-1111-1111-1111-111111111111");
         UUID guestId = UUID.fromString("22222222-2222-2222-2222-222222222222");
 
         when(reservationRepository.existsByRoom_IdAndGuest_Id(roomId, guestId)).thenReturn(false);
@@ -129,5 +133,70 @@ class ReservationServiceTest {
         assertThrows(RoomNotFoundException.class, () -> reservationService.createReservation(reservation));
 
         verify(reservationRepository, never()).save(any(Reservation.class));
+    }
+
+    @Test
+    void shouldCancelReservationSuccessfully() {
+        UUID reservationId = UUID.fromString("33333333-3333-3333-3333-333333333333");
+
+        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+        when(reservationRepository.save(any())).thenReturn(reservation);
+
+        reservationService.cancelReservation(reservationId);
+
+        assertEquals(ReservationStatus.CANCELLED, reservation.getStatus());
+        assertEquals(RoomStatus.AVAILABLE, room.getStatus());
+
+        verify(reservationRepository).findById(reservationId);
+        verify(reservationRepository, never()).deleteAll();
+        verify(reservationRepository, times(1)).save(reservation);
+        verify(reservationRepository, never()).deleteById(reservationId);
+        verify(roomRepository, atMostOnce()).save(room);
+
+    }
+
+    @Test
+    void shouldThrowExceptionWhenReservationNotFound() {
+        // Given
+        UUID reservationId = UUID.fromString("55555555-5555-5555-5555-555555555555");
+
+        when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
+
+        // Then
+        assertThrows(ReservationNotFoundException.class, () -> reservationService.cancelReservation(reservationId));
+
+        verify(roomRepository, never()).save(any());
+        verify(reservationRepository, never()).save(any());
+    }
+
+    @Test
+    void shouldCancelAllReservationsSuccessfully() {
+        // Given
+        List<Reservation> reservations = List.of(reservation1(), reservation2());
+        when(reservationRepository.findAll()).thenReturn(reservations);
+
+        // When
+        reservationService.cancelReservation();
+
+        // Then
+        assertEquals(RoomStatus.AVAILABLE, getRoom().getStatus());
+        assertEquals(RoomStatus.AVAILABLE, getRoom2().getStatus());
+        assertEquals(ReservationStatus.CANCELLED, reservation1().getStatus());
+        assertEquals(ReservationStatus.CANCELLED, reservation2().getStatus());
+
+        verify(roomRepository, times(2)).save(any(Room.class));
+        verify(reservationRepository, times(2)).save(any(Reservation.class));
+    }
+
+    @Test
+    void shouldThrowReservationNotFoundExceptionWhenReservationNotExists() {
+        // Given
+        when(reservationRepository.findAll()).thenReturn(List.of());
+
+        // When & Then
+        assertThrows(ReservationNotFoundException.class, () -> reservationService.cancelReservation());
+
+        verify(roomRepository, never()).save(any());
+        verify(reservationRepository, never()).save(any());
     }
 }
