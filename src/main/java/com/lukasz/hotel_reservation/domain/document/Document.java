@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.document;
+package com.lukasz.hotel_reservation.domain.document;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
