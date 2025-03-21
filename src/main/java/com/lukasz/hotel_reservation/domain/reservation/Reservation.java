@@ -38,10 +38,10 @@ public class Reservation {
     private Room room;
     @FutureOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")
-    private LocalDate checkIn;
+    private LocalDateTime checkIn;
     @Future
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")
-    private LocalDate checkOut;
+    private LocalDateTime checkOut;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @Lob

@@ -1,6 +1,7 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.DuplicateReservationException;
+import com.lukasz.hotel_reservation.domain.reservation.exceptions.IncorrectReservationDate;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomRepository;
@@ -9,6 +10,8 @@ import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotFoundException
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,12 +27,17 @@ class ReservationService {
         this.roomRepository = roomRepository;
     }
 
-    public ReservationResponse createReservation(Reservation reservation) {
-        validateDuplicatedReservation(reservation);
-        Room room = getAvailableRoom(reservation);
-        updateRoomStatus(room);
-        return saveReservation(reservation);
+    public void createReservation(Reservation reservation) {
+        if (reservationRepository.existsByRoom_IdAndGuest_Id(
+                reservation.getRoom().getId(),
+                reservation.getGuest().getId())) {
+            throw new DuplicateReservationException("Guest already has a reservation for this room");
+        }
 
+        Room room = getAvailableRoom(reservation);
+        room.setStatus(RoomStatus.RESERVED);
+        roomRepository.save(room);
+        reservationRepository.save(reservation);
     }
 
     public ReservationResponse findReservation(UUID reservationId) {
@@ -40,16 +48,9 @@ class ReservationService {
 
     public void cancelReservation(UUID reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found"));
 
-        Room room = reservation.getRoom();
-        room.setStatus(RoomStatus.AVAILABLE);
-        roomRepository.save(room);
-
-        reservation.setStatus(ReservationStatus.CANCELLED);
-        Reservation reservationSaved = reservationRepository.save(reservation);
-
-        log.info("Reservation id: {} cancelled, room id: {} is now available", reservationSaved.getId(), room.getId());
+        cancelReservationWithRoomStatusAvailable(reservation);
     }
 
     public void cancelReservation() {
@@ -58,31 +59,37 @@ class ReservationService {
             throw new ReservationNotFoundException("Reservation not found");
         }
 
-        savedCancelReservation(reservations);
-    }
-
-    private void savedCancelReservation(List<Reservation> reservations) {
         reservations.stream()
                 .filter(Objects::nonNull)
-                .forEach(reservation -> {
-                    Room room = savedAvailableRoom(reservation);
-                    savedCanceledReservation(reservation, room);
-                });
+                .forEach(this::cancelReservationWithRoomStatusAvailable);
     }
 
-    private void savedCanceledReservation(Reservation reservation, Room room) {
+    private void cancelReservationWithRoomStatusAvailable(Reservation reservation) {
         reservation.setStatus(ReservationStatus.CANCELLED);
-        Reservation reservationSaved = reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
 
-        log.info("Reservation: {} cancelled, room: {}", reservationSaved, room);
-    }
-
-    private Room savedAvailableRoom(Reservation reservation) {
         Room room = reservation.getRoom();
         room.setStatus(RoomStatus.AVAILABLE);
         roomRepository.save(room);
-        return room;
     }
+
+    public long countDays(LocalDateTime checkIn, LocalDateTime checkOut) {
+        validReservationDate(checkIn, checkOut);
+        LocalDateTime timeCheckIn = checkIn.withHour(14).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime timeCheckOut = checkIn.withHour(14).withMinute(0).withSecond(0).withNano(0);
+
+        return ChronoUnit.DAYS.between(timeCheckIn, timeCheckOut);
+    }
+
+    private static void validReservationDate(LocalDateTime checkIn, LocalDateTime checkOut) {
+        if (checkOut.isBefore(checkIn)) {
+            throw new IncorrectReservationDate("Check-out cannot be before check-out");
+        }
+        if (checkOut.isEqual(checkIn)) {
+            throw new IncorrectReservationDate("Check-out cannot be equal check-in");
+        }
+    }
+
 
     private Room getAvailableRoom(Reservation reservation) {
         return roomRepository.findById(reservation.getRoom().getId())
@@ -90,24 +97,8 @@ class ReservationService {
                 .orElseThrow(() -> new RoomNotFoundException(reservation.getRoom().getId()));
     }
 
-    private void updateRoomStatus(Room room) {
-        room.setStatus(RoomStatus.RESERVED);
-        roomRepository.save(room);
-    }
-
     private void validateDuplicatedReservation(Reservation reservation) {
-        if (reservationRepository.existsByRoom_IdAndGuest_Id(
-                reservation.getRoom().getId(),
-                reservation.getGuest().getId())) {
-            throw new DuplicateReservationException("Guest already has a reservation for this room");
-        }
-    }
 
-    private ReservationResponse saveReservation(Reservation reservation) {
-        reservation.setRoom(reservation.getRoom());
-        Reservation reservationSaved = reservationRepository.save(reservation);
-        log.info("Reservation saved: {}", reservationSaved);
-        return toReservationResponse(reservation);
     }
 
     private ReservationResponse toReservationResponse(Reservation savedReservation) {
