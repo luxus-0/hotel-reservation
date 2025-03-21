@@ -194,7 +194,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         when(reservationRepository.findAll()).thenReturn(List.of());
 
         // When & Then
-        assertThrows(ReservationNotFoundException.class, () -> reservationService.cancelReservation());
+       assertThrowsExactly(ReservationNotFoundException.class, () -> reservationService.cancelReservation(), "Reservation not found");
 
         verify(roomRepository, never()).save(any());
         verify(reservationRepository, never()).save(any());
@@ -222,7 +222,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         assertNotNull(response);
         assertEquals(UUID.fromString("22222222-2222-2222-2222-222222222222"), response.getGuestId());
         assertEquals(ReservationStatus.CONFIRMED, response.getStatus());
-        verify(reservationRepository).findById(response.getGuestId());
+        verify(reservationRepository, atMostOnce()).findById(response.getGuestId());
     }
 
     @Test

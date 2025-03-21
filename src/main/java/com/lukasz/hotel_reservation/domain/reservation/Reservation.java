@@ -5,7 +5,10 @@ import com.lukasz.hotel_reservation.domain.room.Room;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,7 +45,7 @@ public class Reservation {
     @CreationTimestamp
     private LocalDateTime createdAt;
     @Lob
-    @Column(name="reservation.pdf", columnDefinition = "BYTEA")
+    @Column(name = "reservation.pdf", columnDefinition = "BYTEA")
     private byte[] pdf;
 }
 

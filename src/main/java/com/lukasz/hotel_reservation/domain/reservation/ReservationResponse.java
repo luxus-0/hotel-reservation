@@ -1,8 +1,5 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import com.lukasz.hotel_reservation.domain.guest.Guest;
-import com.lukasz.hotel_reservation.domain.room.Room;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -55,7 +55,7 @@ class ReservationService {
     public void cancelReservation() {
         List<Reservation> reservations = reservationRepository.findAll();
         if (reservations.isEmpty()) {
-            log.error("No reservations to cancel");
+            throw new ReservationNotFoundException("Reservation not found");
         }
 
         savedCancelReservation(reservations);
