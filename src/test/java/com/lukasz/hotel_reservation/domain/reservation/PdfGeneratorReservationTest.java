@@ -3,10 +3,9 @@ package com.lukasz.hotel_reservation.domain.reservation;
 import com.itextpdf.text.DocumentException;
 import com.lukasz.hotel_reservation.domain.guest.Guest;
 import com.lukasz.hotel_reservation.domain.hotel.Hotel;
-import com.lukasz.hotel_reservation.domain.hotel.HotelRepository;
-import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorReservation;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorResponse;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorService;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomType;
@@ -29,11 +28,9 @@ import static org.mockito.Mockito.when;
 class PdfGeneratorReservationTest {
 
     @Mock
-    private HotelRepository hotelRepository;
-    @Mock
     private ReservationRepository reservationRepository;
     @InjectMocks
-    private PdfGeneratorReservation pdfGeneratorReservation;
+    private PdfGeneratorService pdfGeneratorService;
 
     @Test
     void shouldGeneratePdfSuccessfully() throws DocumentException, IOException {
@@ -75,7 +72,7 @@ class PdfGeneratorReservationTest {
 
 
         // when
-        PdfGeneratorResponse response = pdfGeneratorReservation.generate(request);
+        PdfGeneratorResponse response = pdfGeneratorService.generate(request);
 
         // then
         assertNotNull(response);
@@ -96,6 +93,6 @@ class PdfGeneratorReservationTest {
         PdfGeneratorRequest pdfRequest = new PdfGeneratorRequest(reservationId,"test.pdf", "Helvetica", 17, "Reservation");
 
         // then
-        assertThrows(ReservationNotFoundException.class, () -> pdfGeneratorReservation.generate(pdfRequest));
+        assertThrows(ReservationNotFoundException.class, () -> pdfGeneratorService.generate(pdfRequest));
     }
 }
