@@ -199,4 +199,41 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         verify(roomRepository, never()).save(any());
         verify(reservationRepository, never()).save(any());
     }
+
+    @Test
+    void shouldReturnReservationResponseWhenReservationExists() {
+        // given
+        Reservation reservation = Reservation.builder()
+                .id(UUID.fromString("33333333-3333-3333-3333-333333333333"))
+                .status(ReservationStatus.CONFIRMED)
+                .checkIn(LocalDate.of(2023, 1, 1))
+                .checkOut(LocalDate.of(2022, 1, 1))
+                .room(getRoom())
+                .guest(getGuest())
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        when(reservationRepository.findById(reservation.getId())).thenReturn(Optional.of(reservation));
+
+        // when
+        ReservationResponse response = reservationService.findReservation(reservation.getId());
+
+        // then
+        assertNotNull(response);
+        assertEquals(UUID.fromString("22222222-2222-2222-2222-222222222222"), response.getGuestId());
+        assertEquals(ReservationStatus.CONFIRMED, response.getStatus());
+        verify(reservationRepository).findById(response.getGuestId());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenReservationNotExists() {
+        // given
+        UUID reservationId = UUID.randomUUID();
+        when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
+
+        // when + then
+        assertThrows(ReservationNotFoundException.class,
+                () -> reservationService.findReservation(reservationId));
+        verify(reservationRepository).findById(reservationId);
+    }
 }

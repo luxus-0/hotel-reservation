@@ -1,7 +1,9 @@
 package com.lukasz.hotel_reservation.domain.reservation.exceptions;
 
+import java.util.UUID;
+
 public class ReservationNotFoundException extends RuntimeException{
-    public ReservationNotFoundException(){
-        super("Reservation not found");
+    public ReservationNotFoundException(UUID reservationId){
+        super("Reservation Id:" + reservationId + "not found");
     }
 }

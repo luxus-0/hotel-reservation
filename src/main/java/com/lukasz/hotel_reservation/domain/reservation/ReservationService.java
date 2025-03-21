@@ -32,9 +32,15 @@ class ReservationService {
 
     }
 
+    public ReservationResponse findReservation(UUID reservationId) {
+        return reservationRepository.findById(reservationId)
+                .map(this::toReservationResponse)
+                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
+    }
+
     public void cancelReservation(UUID reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(ReservationNotFoundException::new);
+                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
 
         Room room = reservation.getRoom();
         room.setStatus(RoomStatus.AVAILABLE);
@@ -49,7 +55,7 @@ class ReservationService {
     public void cancelReservation() {
         List<Reservation> reservations = reservationRepository.findAll();
         if (reservations.isEmpty()) {
-            throw new ReservationNotFoundException();
+            log.error("No reservations to cancel");
         }
 
         savedCancelReservation(reservations);
@@ -81,7 +87,7 @@ class ReservationService {
     private Room getAvailableRoom(Reservation reservation) {
         return roomRepository.findById(reservation.getRoom().getId())
                 .filter(room -> room.getStatus().equals(RoomStatus.AVAILABLE))
-                .orElseThrow(RoomNotFoundException::new);
+                .orElseThrow(() -> new RoomNotFoundException(reservation.getRoom().getId()));
     }
 
     private void updateRoomStatus(Room room) {
@@ -101,10 +107,10 @@ class ReservationService {
         reservation.setRoom(reservation.getRoom());
         Reservation reservationSaved = reservationRepository.save(reservation);
         log.info("Reservation saved: {}", reservationSaved);
-        return getReservation(reservation);
+        return toReservationResponse(reservation);
     }
 
-    private ReservationResponse getReservation(Reservation savedReservation) {
+    private ReservationResponse toReservationResponse(Reservation savedReservation) {
         return ReservationResponse.builder()
                 .status(savedReservation.getStatus())
                 .guestId(savedReservation.getGuest().getId())

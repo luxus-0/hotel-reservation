@@ -2,13 +2,12 @@ package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.guest.Guest;
 import com.lukasz.hotel_reservation.domain.room.Room;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,11 +34,16 @@ public class Reservation {
     @ManyToOne
     private Room room;
     @FutureOrPresent
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")
     private LocalDate checkIn;
     @Future
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")
     private LocalDate checkOut;
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @Lob
+    @Column(name="reservation.pdf", columnDefinition = "BYTEA")
+    private byte[] pdf;
 }
 
 
