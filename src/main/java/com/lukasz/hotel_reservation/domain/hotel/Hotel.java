@@ -2,7 +2,10 @@ package com.lukasz.hotel_reservation.domain.hotel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Entity
