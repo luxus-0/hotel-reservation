@@ -3,7 +3,6 @@ package com.lukasz.hotel_reservation.domain.reservation;
 import com.itextpdf.text.DocumentException;
 import com.lukasz.hotel_reservation.domain.guest.Guest;
 import com.lukasz.hotel_reservation.domain.hotel.Hotel;
-import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorResponse;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorService;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,13 +71,12 @@ class PdfGeneratorReservationTest {
 
 
         // when
-        PdfGeneratorResponse response = pdfGeneratorService.generate(request);
+        byte[] response = pdfGeneratorService.generate(request);
 
         // then
         assertNotNull(response);
-        assertNotNull(response.pdf());
-        assertEquals("test.pdf", response.filename());
-        assertTrue(response.pdf().length > 0);
+        assertEquals("test.pdf", request.filename());
+        assertTrue(response.length > 0);
 
         verify(reservationRepository).findById(reservationId);
     }
