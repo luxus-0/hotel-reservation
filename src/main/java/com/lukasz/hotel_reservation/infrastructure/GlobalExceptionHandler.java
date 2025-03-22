@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
-    @ExceptionHandler(ReservationExistsException.class)
+    @ExceptionHandler(IncorrectReservationDate.class)
     public ResponseEntity<String> handleIncorrectReservationDate(IncorrectReservationDate ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
