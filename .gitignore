@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 postgres.env
 /src/main/resources/application.properties
-/data/postgres
+/data/postgres/
 
 ### STS ###
 .apt_generated
