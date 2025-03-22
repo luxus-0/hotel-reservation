@@ -1,18 +1,15 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@AllArgsConstructor
 @Builder
-@Getter
-public class ReservationResponse {
-    private UUID id;
-    private ReservationStatus status;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
+public record ReservationResponse(
+        @NotNull UUID id,
+        @NotNull ReservationStatus status,
+        @NotNull LocalDateTime checkIn,
+        @NotNull LocalDateTime checkOut) {
 }

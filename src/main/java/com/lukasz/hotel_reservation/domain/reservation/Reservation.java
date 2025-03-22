@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.SqlTypes;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -45,7 +48,8 @@ public class Reservation {
     @CreationTimestamp
     private LocalDateTime createdAt;
     @Lob
-    @Column(name = "reservation.pdf", columnDefinition = "BYTEA")
+    @JdbcTypeCode(SqlTypes.BINARY)
+    @Column(name = "reservation_pdf", columnDefinition = "bytea")
     private byte[] pdf;
 }
 

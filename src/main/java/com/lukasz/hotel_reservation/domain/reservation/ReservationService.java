@@ -62,6 +62,7 @@ public class ReservationService {
 
     private ReservationResponse toReservationResponse(Reservation savedReservation) {
         return ReservationResponse.builder()
+                .id(savedReservation.getId())
                 .status(savedReservation.getStatus())
                 .checkIn(savedReservation.getCheckIn())
                 .checkOut(savedReservation.getCheckOut())
