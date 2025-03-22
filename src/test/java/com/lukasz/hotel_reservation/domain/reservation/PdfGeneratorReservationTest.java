@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,8 +59,8 @@ class PdfGeneratorReservationTest {
 
         Reservation reservation = Reservation.builder()
                 .id(reservationId)
-                .checkIn(LocalDate.now())
-                .checkOut(LocalDate.now().plusDays(2))
+                .checkIn(LocalDateTime.now())
+                .checkOut(LocalDateTime.now().plusDays(2))
                 .guest(guest)
                 .room(room)
                 .status(ReservationStatus.CONFIRMED)

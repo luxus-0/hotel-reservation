@@ -74,8 +74,8 @@ public class ReservationServiceTestConstant {
                 .id(UUID.fromString("33333333-3333-3333-3333-333333333333"))
                 .room(getRoom())
                 .guest(getGuest())
-                .checkIn(LocalDate.of(2025, 3, 21))
-                .checkOut(LocalDate.of(2025, 3, 25))
+                .checkIn(LocalDateTime.of(2025, 3, 21, 11, 0,0,0))
+                .checkOut(LocalDateTime.of(2025, 3, 25, 12, 0, 0, 0))
                 .status(ReservationStatus.CANCELLED)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -86,8 +86,8 @@ public class ReservationServiceTestConstant {
                 .id(UUID.fromString("66666666-6666-6666-6666-666666666666"))
                 .room(getRoom2())
                 .guest(getGuest2())
-                .checkIn(LocalDate.of(2025, 3, 21))
-                .checkOut(LocalDate.of(2025, 3, 25))
+                .checkIn(LocalDateTime.of(2025, 3, 21, 12, 0,0,0))
+                .checkOut(LocalDateTime.of(2025, 3, 25, 13, 0, 0, 0))
                 .status(ReservationStatus.CANCELLED)
                 .createdAt(LocalDateTime.now())
                 .build();
