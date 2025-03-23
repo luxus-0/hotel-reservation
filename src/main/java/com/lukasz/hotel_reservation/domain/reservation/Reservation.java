@@ -1,6 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import com.lukasz.hotel_reservation.domain.guest.Guest;
+import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -11,11 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -33,11 +31,15 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
-    @ManyToOne
-    private Guest guest;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
     @FutureOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")

@@ -3,14 +3,13 @@ package com.lukasz.hotel_reservation.domain.reservation;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.IncorrectReservationDate;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationExistsException;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -21,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@Log4j2
 class ReservationServiceTest extends ReservationServiceTestConstant {
     @Mock
     private ReservationRepository reservationRepository;
@@ -45,7 +45,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
     }
 
     @Test
-    void shouldCreateReservationSuccessfully() {
+    void shouldCreateSuccessfully() {
         UUID reservationId = UUID.randomUUID();
         ReservationStatus status = ReservationStatus.CANCELLED;
         LocalDateTime checkIn = LocalDateTime.now().plusDays(1);
@@ -58,20 +58,20 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
 
         ReservationRequest request = new ReservationRequest(reservationId, status, checkIn, checkOut, createdAt);
 
-        reservationService.createReservation(request);
+        reservationService.create(request);
 
         verify(reservationValidator, times(1)).validate(checkIn, checkOut);
         verify(reservationRepository).save(any(Reservation.class));
     }
 
     @Test
-    void shouldCancelReservationSuccessfully() {
+    void shouldCancelSuccessfully() {
         UUID reservationId = reservation.getId();
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
         when(reservationRepository.save(any())).thenReturn(reservation);
 
-        reservationService.cancelReservation(reservationId);
+        reservationService.cancel(reservationId);
 
         assertEquals(ReservationStatus.CANCELLED, reservation.getStatus());
         verify(reservationRepository).findById(reservationId);
@@ -84,7 +84,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
 
-        reservationService.cancelReservation(reservationId);
+        reservationService.cancel(reservationId);
 
         verify(reservationRepository).findById(reservationId);
         verify(reservationRepository, never()).save(any(Reservation.class));
@@ -104,7 +104,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         ReservationRequest request = new ReservationRequest(reservationId, status, checkIn, checkOut, createdAt);
 
         assertThrowsExactly(ReservationExistsException.class,
-                () -> reservationService.createReservation(request),
+                () -> reservationService.create(request),
                 "Reservation with id " + reservationId + " already exists");
 
         verify(reservationRepository, never()).save(any(Reservation.class));
@@ -117,7 +117,10 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
 
         assertThrowsExactly(ReservationNotFoundException.class,
-                () -> reservationService.findReservation(reservationId),
+                () -> {
+                    ReservationFinderResponse reservation = reservationService.find(reservationId);
+                    log.info(reservation);
+                },
                 "Reservation id: " + reservationId + " not found");
 
         verify(reservationRepository, never()).save(any());
@@ -161,7 +164,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
     }
 
     @Test
-    void shouldThrowIncorrectReservationDateWhenCheckOutBeforeCheckInForCreateReservation() {
+    void shouldThrowIncorrectReservationDateWhenCheckOutBeforeCheckInForCreate() {
         LocalDateTime checkIn = LocalDateTime.of(2025, 3, 25, 10, 0);
         LocalDateTime checkOut = LocalDateTime.of(2025, 3, 21, 10, 0);
         LocalDateTime createdAt = LocalDateTime.now();
@@ -171,13 +174,13 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
 
         ReservationRequest request = new ReservationRequest(UUID.randomUUID(), ReservationStatus.PAID, checkIn, checkOut, createdAt);
 
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.createReservation(request));
+        assertThrows(IncorrectReservationDate.class, () -> reservationService.create(request));
         verify(reservationValidator, times(1)).validate(checkIn, checkOut);
         verify(reservationRepository, never()).save(any(Reservation.class));
     }
 
     @Test
-    void shouldThrowIncorrectReservationDateWhenDatesAreEqualForCreateReservation() {
+    void shouldThrowIncorrectReservationDateWhenDatesAreEqualForCreate() {
         LocalDateTime checkIn = LocalDateTime.of(2025, 3, 21, 10, 0);
         LocalDateTime checkOut = checkIn;
         LocalDateTime createdAt = LocalDateTime.now();
@@ -187,7 +190,7 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
 
         ReservationRequest request = new ReservationRequest(UUID.randomUUID(), ReservationStatus.CANCELLED, checkIn, checkOut, createdAt);
 
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.createReservation(request));
+        assertThrows(IncorrectReservationDate.class, () -> reservationService.create(request));
         verify(reservationValidator, times(1)).validate(checkIn, checkOut);
         verify(reservationRepository, never()).save(any(Reservation.class));
     }
