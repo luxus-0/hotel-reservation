@@ -1,13 +1,11 @@
 package com.lukasz.hotel_reservation.domain.room;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Entity
@@ -17,10 +15,15 @@ import java.util.UUID;
 @Data
 public class Room {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private int roomNumber;
+    @Min(1)
+    private int number;
+    @Enumerated(EnumType.STRING)
     private RoomType type;
-    private RoomStatus status = RoomStatus.AVAILABLE;
+    @Enumerated(EnumType.STRING)
+    private RoomStatus status;
     @Version
+    @Min(1)
     private Long version;
 }
