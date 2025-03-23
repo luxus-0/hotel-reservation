@@ -1,7 +1,7 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
-import com.lukasz.hotel_reservation.domain.guest.Guest;
+import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.hotel.Hotel;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorService;
@@ -45,13 +45,13 @@ class PdfGeneratorReservationTest {
                 .description("Test Desc")
                 .build();
 
-        Guest guest = Guest.builder()
+        Customer customer = Customer.builder()
                 .name("Jan")
                 .surname("Kowalski")
                 .build();
 
         Room room = Room.builder()
-                .roomNumber(101)
+                .number(101)
                 .type(RoomType.SINGLE)
                 .build();
 
@@ -59,7 +59,7 @@ class PdfGeneratorReservationTest {
                 .id(reservationId)
                 .checkIn(LocalDateTime.now())
                 .checkOut(LocalDateTime.now().plusDays(2))
-                .guest(guest)
+                .customer(customer)
                 .room(room)
                 .status(ReservationStatus.CONFIRMED)
                 .build();

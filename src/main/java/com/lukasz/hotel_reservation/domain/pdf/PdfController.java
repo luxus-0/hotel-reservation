@@ -1,6 +1,5 @@
 package com.lukasz.hotel_reservation.domain.pdf;
 
-import com.itextpdf.text.DocumentException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/api/pdf")
 @AllArgsConstructor
@@ -23,7 +20,6 @@ public class PdfController {
 
     @PostMapping(value = "/generate", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<byte[]> generatePdf(@RequestBody @Valid PdfGeneratorRequest pdfRequest) throws Exception {
-        log.info("Received reservationId: {}", pdfRequest.reservationId());
         byte[] response = pdfGeneratorService.generate(pdfRequest);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
