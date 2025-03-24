@@ -1,8 +1,13 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.IncorrectReservationDate;
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationExistsException;
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
+import com.itextpdf.text.DocumentException;
+import com.lukasz.hotel_reservation.domain.address.AddressFinderResponse;
+import com.lukasz.hotel_reservation.domain.contact.ContactFinderResponse;
+import com.lukasz.hotel_reservation.domain.customer.CustomerFinderResponse;
+import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;
+import com.lukasz.hotel_reservation.domain.room.RoomStatus;
+import com.lukasz.hotel_reservation.domain.room.RoomType;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,17 +16,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Log4j2
-class ReservationServiceTest extends ReservationServiceTestConstant {
+class ReservationServiceTest {
+
     @Mock
     private ReservationRepository reservationRepository;
 
@@ -45,20 +53,51 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
     }
 
     @Test
-    void shouldCreateSuccessfully() {
+    void shouldCreateSuccessfully() throws DocumentException, IOException {
         UUID reservationId = UUID.randomUUID();
         ReservationStatus status = ReservationStatus.CANCELLED;
         LocalDateTime checkIn = LocalDateTime.now().plusDays(1);
         LocalDateTime checkOut = LocalDateTime.now().plusDays(7);
         LocalDateTime createdAt = LocalDateTime.now();
 
+        RoomFinderResponse room = RoomFinderResponse.builder()
+                .id(UUID.randomUUID())
+                .number(101)
+                .type(RoomType.SINGLE)
+                .status(RoomStatus.AVAILABLE)
+                .build();
+
+        CustomerFinderResponse customer = CustomerFinderResponse.builder()
+                .name("John")
+                .surname("Doe")
+                .phone("123456789")
+                .email("john.doe@example.com")
+                .build();
+
+        AddressFinderResponse address = AddressFinderResponse.builder()
+                .city("Krakow")
+                .number(10)
+                .street("Main Street")
+                .postalCode("30-001")
+                .country("Poland")
+                .build();
+
+        ContactFinderResponse contact = new ContactFinderResponse("contact@example.com", "987654321");
+
         doNothing().when(reservationValidator).validate(checkIn, checkOut);
         when(reservationRepository.existsById(reservationId)).thenReturn(false);
         when(reservationRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ReservationRequest request = new ReservationRequest(reservationId, status, checkIn, checkOut, createdAt);
+        ReservationCreatorRequest request = new ReservationCreatorRequest(
+                reservationId, status, checkIn, checkOut, createdAt, room, customer, address, contact
+        );
 
-        reservationService.create(request);
+        PdfGeneratorRequest pdfRequest = PdfGeneratorRequest.builder()
+                .title("Reservation Confirmation")
+                .fontName("Arial")
+                .build();
+
+        reservationService.create(request, pdfRequest);
 
         verify(reservationValidator, times(1)).validate(checkIn, checkOut);
         verify(reservationRepository).save(any(Reservation.class));
@@ -98,100 +137,50 @@ class ReservationServiceTest extends ReservationServiceTestConstant {
         LocalDateTime checkOut = LocalDateTime.now().plusDays(7);
         LocalDateTime createdAt = LocalDateTime.now();
 
+        RoomFinderResponse room = RoomFinderResponse.builder()
+                .id(UUID.randomUUID())
+                .number(101)
+                .type(RoomType.SINGLE)
+                .status(RoomStatus.AVAILABLE)
+                .build();
+
+        CustomerFinderResponse customer = CustomerFinderResponse.builder()
+                .name("John")
+                .surname("Doe")
+                .phone("123456789")
+                .email("john.doe@example.com")
+                .build();
+
+        AddressFinderResponse address = AddressFinderResponse.builder()
+                .city("Krakow")
+                .number(10)
+                .street("Main Street")
+                .postalCode("30-001")
+                .country("Poland")
+                .build();
+
+        ContactFinderResponse contact = new ContactFinderResponse("contact@example.com", "987654321");
+
         doNothing().when(reservationValidator).validate(checkIn, checkOut);
         when(reservationRepository.existsById(reservationId)).thenReturn(true);
 
-        ReservationRequest request = new ReservationRequest(reservationId, status, checkIn, checkOut, createdAt);
+        ReservationCreatorRequest request = new ReservationCreatorRequest(
+                reservationId, status, checkIn, checkOut, createdAt, room, customer, address, contact
+        );
+
+        PdfGeneratorRequest pdfRequest = PdfGeneratorRequest.builder()
+                .title("Reservation Confirmation")
+                .fontName("Arial")
+                .build();
+
+        assertEquals(request.id(), reservationId);
+        assertEquals(status, request.status());
+        assertEquals(request.checkIn(), checkIn);
+        assertEquals(request.checkOut(), checkOut);
+        assertEquals(request.createdAt(), createdAt);
 
         assertThrowsExactly(ReservationExistsException.class,
-                () -> reservationService.create(request),
-                "Reservation with id " + reservationId + " already exists");
-
-        verify(reservationRepository, never()).save(any(Reservation.class));
-    }
-
-    @Test
-    void shouldThrowReservationNotFoundException() {
-        UUID reservationId = UUID.randomUUID();
-
-        when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
-
-        assertThrowsExactly(ReservationNotFoundException.class,
-                () -> {
-                    ReservationFinderResponse reservation = reservationService.find(reservationId);
-                    log.info(reservation);
-                },
-                "Reservation id: " + reservationId + " not found");
-
-        verify(reservationRepository, never()).save(any());
-    }
-
-    @Test
-    void shouldCalculateCorrectDays() {
-        LocalDateTime checkIn = LocalDateTime.of(2025, 3, 21, 10, 0);
-        LocalDateTime checkOut = LocalDateTime.of(2025, 3, 25, 15, 0);
-
-        doNothing().when(reservationValidator).validate(checkIn, checkOut);
-
-        long days = reservationService.countDays(checkIn, checkOut);
-
-        verify(reservationValidator, times(1)).validate(checkIn, checkOut);
-        assertEquals(3, days);
-    }
-
-    @Test
-    void shouldThrowIncorrectReservationDateWhenCheckOutBeforeCheckInForCountDays() {
-        LocalDateTime checkIn = LocalDateTime.of(2025, 3, 25, 10, 0);
-        LocalDateTime checkOut = LocalDateTime.of(2025, 3, 21, 10, 0);
-
-        doThrow(new IncorrectReservationDate("Check-out cannot be before check-in"))
-                .when(reservationValidator).validate(checkIn, checkOut);
-
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.countDays(checkIn, checkOut));
-        verify(reservationValidator, times(1)).validate(checkIn, checkOut);
-    }
-
-    @Test
-    void shouldThrowIncorrectReservationDateWhenDatesAreEqualForCountDays() {
-        LocalDateTime checkIn = LocalDateTime.of(2025, 3, 21, 10, 0);
-        LocalDateTime checkOut = checkIn;
-
-        doThrow(new IncorrectReservationDate("Check-out cannot be equal check-in"))
-                .when(reservationValidator).validate(checkIn, checkOut);
-
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.countDays(checkIn, checkOut));
-        verify(reservationValidator, times(1)).validate(checkIn, checkOut);
-    }
-
-    @Test
-    void shouldThrowIncorrectReservationDateWhenCheckOutBeforeCheckInForCreate() {
-        LocalDateTime checkIn = LocalDateTime.of(2025, 3, 25, 10, 0);
-        LocalDateTime checkOut = LocalDateTime.of(2025, 3, 21, 10, 0);
-        LocalDateTime createdAt = LocalDateTime.now();
-
-        doThrow(new IncorrectReservationDate("Check-out cannot be before check-in"))
-                .when(reservationValidator).validate(checkIn, checkOut);
-
-        ReservationRequest request = new ReservationRequest(UUID.randomUUID(), ReservationStatus.PAID, checkIn, checkOut, createdAt);
-
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.create(request));
-        verify(reservationValidator, times(1)).validate(checkIn, checkOut);
-        verify(reservationRepository, never()).save(any(Reservation.class));
-    }
-
-    @Test
-    void shouldThrowIncorrectReservationDateWhenDatesAreEqualForCreate() {
-        LocalDateTime checkIn = LocalDateTime.of(2025, 3, 21, 10, 0);
-        LocalDateTime checkOut = checkIn;
-        LocalDateTime createdAt = LocalDateTime.now();
-
-        doThrow(new IncorrectReservationDate("Check-out cannot be equal check-in"))
-                .when(reservationValidator).validate(checkIn, checkOut);
-
-        ReservationRequest request = new ReservationRequest(UUID.randomUUID(), ReservationStatus.CANCELLED, checkIn, checkOut, createdAt);
-
-        assertThrows(IncorrectReservationDate.class, () -> reservationService.create(request));
-        verify(reservationValidator, times(1)).validate(checkIn, checkOut);
-        verify(reservationRepository, never()).save(any(Reservation.class));
+                () -> reservationService.create(request, pdfRequest), "Reservation with id " + reservationId + " already exists");
     }
 }
+

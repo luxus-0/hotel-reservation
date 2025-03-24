@@ -2,7 +2,6 @@ package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.contact.Contact;
-import com.lukasz.hotel_reservation.domain.document.Document;
 import com.lukasz.hotel_reservation.domain.document.DocumentType;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
@@ -18,7 +17,7 @@ public class ReservationServiceTestConstant {
                 .id(UUID.fromString("11111111-1111-1111-1111-111111111111"))
                 .type(RoomType.DOUBLE)
                 .version(1L)
-                .roomNumber(34)
+                .number(34)
                 .status(RoomStatus.AVAILABLE)
                 .build();
     }
@@ -28,7 +27,7 @@ public class ReservationServiceTestConstant {
                 .id(UUID.fromString("11111111-1111-1111-1111-111111111111"))
                 .type(RoomType.DOUBLE)
                 .version(2L)
-                .roomNumber(35)
+                .number(35)
                 .status(RoomStatus.AVAILABLE)
                 .build();
     }
@@ -39,13 +38,8 @@ public class ReservationServiceTestConstant {
                 .name("John")
                 .surname("Smith")
                 .birthDate(LocalDate.of(1990, 1, 10))
-                .document(Document.builder()
-                        .id(UUID.fromString("11111111-1111-1111-1111-111111111111"))
-                        .number(123L)
-                        .type(DocumentType.ID_CARD)
-                        .build())
                 .contact(Contact.builder()
-                        .phoneNumber("12345567")
+                        .phone("12345567")
                         .email("lukasz@o2.pl")
                         .build())
                 .build();
@@ -57,13 +51,8 @@ public class ReservationServiceTestConstant {
                 .name("John")
                 .surname("Smith")
                 .birthDate(LocalDate.of(1990, 1, 10))
-                .document(Document.builder()
-                        .id(UUID.fromString("22222222-2222-2222-2222-222222222222"))
-                        .number(124L)
-                        .type(DocumentType.PASSPORT)
-                        .build())
                 .contact(Contact.builder()
-                        .phoneNumber("34567890")
+                        .phone("34567890")
                         .email("nowog@o2.pl")
                         .build())
                 .build();

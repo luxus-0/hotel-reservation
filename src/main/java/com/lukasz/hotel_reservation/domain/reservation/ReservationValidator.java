@@ -1,6 +1,5 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.IncorrectReservationDate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
