@@ -1,6 +1,5 @@
 package com.lukasz.hotel_reservation.domain.room;
 
-import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
