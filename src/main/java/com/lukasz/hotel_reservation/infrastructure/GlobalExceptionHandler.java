@@ -1,9 +1,9 @@
 package com.lukasz.hotel_reservation.infrastructure;
 
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.IncorrectReservationDate;
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationExistsException;
-import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotAvailableException;
-import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotFoundException;
+import com.lukasz.hotel_reservation.domain.reservation.IncorrectReservationDate;
+import com.lukasz.hotel_reservation.domain.reservation.ReservationExistsException;
+import com.lukasz.hotel_reservation.domain.room.RoomNotAvailableException;
+import com.lukasz.hotel_reservation.domain.room.RoomNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
