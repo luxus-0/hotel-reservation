@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ReservationRequest(
+public record ReservationCreatorRequest(
         @NotNull UUID id,
         @NotNull ReservationStatus status,
         @NotNull LocalDateTime checkIn,

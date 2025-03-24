@@ -15,39 +15,39 @@ class ReservationMapper {
                 .build();
     }
 
-    static Customer toCustomer(ReservationRequest reservationRequest) {
+    static Customer toCustomer(ReservationCreatorRequest reservationCreatorRequest) {
         return Customer.builder()
-                .name(reservationRequest.customer().name())
-                .surname(reservationRequest.customer().surname())
-                .birthDate(reservationRequest.customer().birthDate())
-                .address(toAddress(reservationRequest))
-                .contact(toContact(reservationRequest))
+                .name(reservationCreatorRequest.customer().name())
+                .surname(reservationCreatorRequest.customer().surname())
+                .birthDate(reservationCreatorRequest.customer().birthDate())
+                .address(toAddress(reservationCreatorRequest))
+                .contact(toContact(reservationCreatorRequest))
                 .build();
     }
 
-    static Contact toContact(ReservationRequest reservationRequest) {
+    static Contact toContact(ReservationCreatorRequest reservationCreatorRequest) {
         return Contact.builder()
-                .phone(reservationRequest.contact().phone())
-                .email(reservationRequest.contact().email())
+                .phone(reservationCreatorRequest.contact().phone())
+                .email(reservationCreatorRequest.contact().email())
                 .build();
     }
 
-    static Address toAddress(ReservationRequest reservationRequest) {
+    static Address toAddress(ReservationCreatorRequest reservationCreatorRequest) {
         return Address.builder()
-                .city(reservationRequest.address().city())
-                .country(reservationRequest.address().country())
-                .postalCode(reservationRequest.address().postalCode())
-                .street(reservationRequest.address().street())
-                .number(reservationRequest.address().number())
+                .city(reservationCreatorRequest.address().city())
+                .country(reservationCreatorRequest.address().country())
+                .postalCode(reservationCreatorRequest.address().postalCode())
+                .street(reservationCreatorRequest.address().street())
+                .number(reservationCreatorRequest.address().number())
                 .build();
     }
 
-    static Room toRoom(ReservationRequest reservationRequest) {
+    static Room toRoom(ReservationCreatorRequest reservationCreatorRequest) {
         return Room.builder()
-                .id(reservationRequest.room().id())
-                .number(reservationRequest.room().number())
-                .status(reservationRequest.room().status())
-                .type(reservationRequest.room().type())
+                .id(reservationCreatorRequest.room().id())
+                .number(reservationCreatorRequest.room().number())
+                .status(reservationCreatorRequest.room().status())
+                .type(reservationCreatorRequest.room().type())
                 .build();
     }
 }

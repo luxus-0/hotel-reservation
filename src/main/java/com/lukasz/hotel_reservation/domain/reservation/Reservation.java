@@ -51,7 +51,7 @@ public class Reservation {
     private LocalDateTime createdAt;
     @Lob
     @JdbcTypeCode(SqlTypes.BINARY)
-    @Column(name = "reservation_pdf", columnDefinition = "bytea")
+    @Column(name = "reservation_pdf", columnDefinition = "bytea", nullable = false)
     private byte[] pdf;
 }
 

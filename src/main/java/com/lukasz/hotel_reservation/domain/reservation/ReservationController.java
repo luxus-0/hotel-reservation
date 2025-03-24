@@ -33,8 +33,8 @@ public class ReservationController {
     }
 
     @PostMapping
-    public void create(@RequestBody @Valid ReservationRequest reservationRequest, PdfGeneratorRequest pdfRequest) throws DocumentException, IOException {
-        reservationService.create(reservationRequest, pdfRequest);
+    public void create(@RequestBody @Valid ReservationCreatorRequest reservationCreatorRequest,@RequestBody @Valid PdfGeneratorRequest pdfRequest) throws DocumentException, IOException {
+        reservationService.create(reservationCreatorRequest, pdfRequest);
     }
 
     @DeleteMapping("/{uuid}")

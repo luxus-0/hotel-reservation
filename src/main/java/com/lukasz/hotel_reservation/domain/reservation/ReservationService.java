@@ -5,7 +5,7 @@ import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,23 +15,23 @@ import java.util.UUID;
 import static com.lukasz.hotel_reservation.domain.reservation.ReservationMapper.toCustomer;
 import static com.lukasz.hotel_reservation.domain.reservation.ReservationMapper.toRoom;
 
-@Component
+@Service
 @Log4j2
 @AllArgsConstructor
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationValidator reservationValidator;
 
-    public void create(ReservationRequest reservationRequest, PdfGeneratorRequest pdf) throws DocumentException, IOException {
-        reservationValidator.validate(reservationRequest.checkIn(), reservationRequest.checkOut());
+    public void create(ReservationCreatorRequest reservationCreatorRequest, PdfGeneratorRequest pdf) throws DocumentException, IOException {
+        reservationValidator.validate(reservationCreatorRequest.checkIn(), reservationCreatorRequest.checkOut());
         Reservation reservation = Reservation.builder()
-                .id(reservationRequest.id())
-                .status(reservationRequest.status())
-                .checkIn(reservationRequest.checkIn())
-                .checkOut(reservationRequest.checkOut())
-                .room(toRoom(reservationRequest))
-                .customer(toCustomer(reservationRequest))
-                        .build();
+                .id(reservationCreatorRequest.id())
+                .status(reservationCreatorRequest.status())
+                .checkIn(reservationCreatorRequest.checkIn())
+                .checkOut(reservationCreatorRequest.checkOut())
+                .room(toRoom(reservationCreatorRequest))
+                .customer(toCustomer(reservationCreatorRequest))
+                .build();
 
         reservationRepository.save(reservation);
     }
