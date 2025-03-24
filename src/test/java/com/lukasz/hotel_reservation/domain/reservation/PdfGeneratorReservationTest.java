@@ -2,10 +2,8 @@ package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
-import com.lukasz.hotel_reservation.domain.hotel.Hotel;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorService;
-import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomType;
 import org.junit.jupiter.api.Test;
@@ -37,14 +35,6 @@ class PdfGeneratorReservationTest {
         UUID reservationId = UUID.randomUUID();
         Long hotelId = 123455L;
 
-        Hotel hotel = Hotel.builder()
-                .id(hotelId)
-                .name("Test Hotel")
-                .address("Test Address")
-                .rating("5")
-                .description("Test Desc")
-                .build();
-
         Customer customer = Customer.builder()
                 .name("Jan")
                 .surname("Kowalski")
@@ -67,16 +57,16 @@ class PdfGeneratorReservationTest {
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
 
         PdfGeneratorRequest request =
-                new PdfGeneratorRequest(reservationId,"test.content", "Helvetica", 17, "Reservation");
+                new PdfGeneratorRequest("test.content", "Helvetica", 17, "Reservation");
 
 
         // when
-        PdfGeneratorResponse response = pdfGeneratorService.generate(request);
+        byte[] response = pdfGeneratorService.generate(request);
 
         // then
         assertNotNull(response);
         assertEquals("test.content", request.filename());
-        assertTrue(response.content().length > 0);
+        assertTrue(response.length > 0);
 
         verify(reservationRepository).findById(reservationId);
     }
@@ -88,7 +78,7 @@ class PdfGeneratorReservationTest {
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
 
-        PdfGeneratorRequest pdfRequest = new PdfGeneratorRequest(reservationId,"test.content", "Helvetica", 17, "Reservation");
+        PdfGeneratorRequest pdfRequest = new PdfGeneratorRequest("test.content", "Helvetica", 17, "Reservation");
 
         // then
         assertThrows(ReservationNotFoundException.class, () -> pdfGeneratorService.generate(pdfRequest));
