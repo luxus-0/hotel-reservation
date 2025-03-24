@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.domain.reservation.exceptions;
+package com.lukasz.hotel_reservation.domain.reservation;
 
 public class IncorrectReservationDate extends RuntimeException {
     public IncorrectReservationDate(String message) {
