@@ -67,16 +67,16 @@ class PdfGeneratorReservationTest {
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
 
         PdfGeneratorRequest request =
-                new PdfGeneratorRequest(reservationId,"test.pdf", "Helvetica", 17, "Reservation");
+                new PdfGeneratorRequest(reservationId,"test.content", "Helvetica", 17, "Reservation");
 
 
         // when
-        byte[] response = pdfGeneratorService.generate(request);
+        PdfGeneratorResponse response = pdfGeneratorService.generate(request);
 
         // then
         assertNotNull(response);
-        assertEquals("test.pdf", request.filename());
-        assertTrue(response.length > 0);
+        assertEquals("test.content", request.filename());
+        assertTrue(response.content().length > 0);
 
         verify(reservationRepository).findById(reservationId);
     }
@@ -88,7 +88,7 @@ class PdfGeneratorReservationTest {
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
 
-        PdfGeneratorRequest pdfRequest = new PdfGeneratorRequest(reservationId,"test.pdf", "Helvetica", 17, "Reservation");
+        PdfGeneratorRequest pdfRequest = new PdfGeneratorRequest(reservationId,"test.content", "Helvetica", 17, "Reservation");
 
         // then
         assertThrows(ReservationNotFoundException.class, () -> pdfGeneratorService.generate(pdfRequest));

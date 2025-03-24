@@ -9,7 +9,6 @@ import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
 import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;
 import com.lukasz.hotel_reservation.domain.room.RoomService;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Log4j2
 @AllArgsConstructor
-@Builder
 public class PdfGeneratorService implements PdfGenerator {
     private final ReservationService reservationService;
     private final RoomService roomService;

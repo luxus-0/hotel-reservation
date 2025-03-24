@@ -15,7 +15,7 @@ import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessa
 public record CustomerFinderResponse(
         @NotNull @Pattern(regexp = CUSTOMER_NAME_REGEX, message = CUSTOMER_NAME_REGEX_MESSAGE) String name,
         @NotNull @Pattern(regexp = CUSTOMER_SURNAME_REGEX, message = CUSTOMER_SURNAME_REGEX_MESSAGE) String surname,
-        @NotNull @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthDate,
+        @NotNull LocalDate birthDate,
         @NotNull @Pattern(regexp = PHONE_REGEX, message = PHONE_REGEX_MESSAGE) String phone,
         @NotNull @Pattern(regexp = EMAIL_REGEX, message = EMAIL_REGEX_MESSAGE) String email) {
 }
