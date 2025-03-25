@@ -12,5 +12,14 @@ public record RoomFinderResponse(
         @Min(1) @NotNull int number,
         @NotNull RoomType type,
         @NotNull RoomStatus status) {
+
+    public String toString() {
+        return ("""
+                \nRoom
+                id: %s
+                Number: %s
+                Type: %s
+                Status: %s""").formatted(id, number, type, status);
+    }
 }
 
