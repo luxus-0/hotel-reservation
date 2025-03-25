@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PdfController {
     private final PdfGeneratorService pdfGeneratorService;
 
-    @PostMapping(value = "/generate", produces = MediaType.APPLICATION_PDF_VALUE)
+    @PostMapping(value = "/generate", produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> generatePdf(@RequestBody @Valid PdfGeneratorRequest pdfRequest) throws Exception {
         byte[] response = pdfGeneratorService.generate(pdfRequest);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfRequest.filename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; " + pdfRequest.image().src())
                 .body(response);
     }
 }
