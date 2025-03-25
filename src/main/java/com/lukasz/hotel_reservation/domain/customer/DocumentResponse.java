@@ -1,12 +1,10 @@
-package com.lukasz.hotel_reservation.domain.document;
+package com.lukasz.hotel_reservation.domain.customer;
 
 import jakarta.validation.constraints.NotNull;
-
-import java.util.UUID;
 
 public record DocumentResponse(@NotNull
                                DocumentType type,
                                @NotNull
-                               UUID number){
+                               Long number){
 
 }
