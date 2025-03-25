@@ -30,7 +30,7 @@ class PdfGeneratorReservationTest {
     private PdfGeneratorService pdfGeneratorService;
 
     @Test
-    void shouldGeneratePdfSuccessfully() throws DocumentException, IOException {
+    void shouldGeneratePdfSuccessfully() throws Exception {
         // given
         UUID reservationId = UUID.randomUUID();
         Long hotelId = 123455L;

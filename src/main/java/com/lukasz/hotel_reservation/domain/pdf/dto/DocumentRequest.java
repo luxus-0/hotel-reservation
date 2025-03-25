@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.domain.pdf;
+package com.lukasz.hotel_reservation.domain.pdf.dto;
 
 import jakarta.validation.constraints.NotNull;
 

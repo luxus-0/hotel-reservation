@@ -1,9 +1,9 @@
-package com.lukasz.hotel_reservation.domain.pdf;
+package com.lukasz.hotel_reservation.domain.pdf.dto;
 
 import jakarta.validation.constraints.NotNull;
 
 public record FontRequest(@NotNull String family,
                           @NotNull int size,
                           @NotNull String style,
-                          @NotNull String color) {
+                          ColorRequest color) {
 }
