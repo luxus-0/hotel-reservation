@@ -20,6 +20,7 @@ public class CustomerService {
                         .surname(customer.getSurname())
                         .email(customer.getContact().getEmail())
                         .phone(customer.getContact().getPhone())
+                        .birthDate(customer.getBirthDate())
                         .build())
                 .findAny()
                 .orElseThrow(CustomerNotFoundException::new);
