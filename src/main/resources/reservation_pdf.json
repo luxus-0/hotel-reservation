@@ -1,0 +1,49 @@
+{
+  "font": {
+    "family": "Helvetica",
+    "size": 12,
+    "style": "NORMAL",
+    "color": "BLUE"
+  },
+  "document": {
+    "pageSize": "A4",
+    "marginLeft": 50,
+    "marginRight": 50,
+    "marginTop": 50,
+    "marginBottom": 50
+  },
+  "paragraph": {
+    "reservationId": "7c3082d9-e332-4353-8ad9-ee91b7af8da1",
+    "roomId": "3d02b31c-b59f-4ce3-87e6-c5e9e27d02fb",
+    "customerId": "8d7e72a3-0b34-4e1a-b71e-5221e7b316f6",
+    "font": {
+      "family": "Helvetica",
+      "size": 12,
+      "style": "BOLD",
+      "color": "#000000"
+    },
+    "alignment": "left",
+    "leading": 16,
+    "spacingBefore": 10,
+    "spacingAfter": 10
+  },
+  "table": {
+    "numberOfColumns": 3,
+    "rows": [
+      ["ID", "12345", ""],
+      ["Check-in", "2025-04-01", ""],
+      ["Check-out", "2025-04-07", ""],
+      ["Room", "Deluxe Suite", ""],
+      ["Customer", "John Doe", ""]
+    ]
+  },
+  "image": {
+    "src": "https://backend.triverna.pl/blog/wp-content/uploads/2024/02/Hotel-typu-boutique-1024x683.jpeg",
+    "width": 200,
+    "height": 100,
+    "alignment":"center",
+    "xPosition": 197.5,
+    "yPosition": 371
+  },
+  "title": "Reservation Confirmation"
+}
