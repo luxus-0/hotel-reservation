@@ -12,4 +12,13 @@ public record ReservationFinderResponse(
         @NotNull ReservationStatus status,
         @NotNull LocalDateTime checkIn,
         @NotNull LocalDateTime checkOut) {
+
+    public String toString() {
+        return ("""
+                \nReservation
+                Id: %s
+                Status: %s
+                Check in: %s
+                Check out: %s""").formatted(id, status, checkIn, checkOut);
+    }
 }
