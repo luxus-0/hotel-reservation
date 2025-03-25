@@ -13,3 +13,4 @@ public record RoomFinderResponse(
         @NotNull RoomType type,
         @NotNull RoomStatus status) {
 }
+
