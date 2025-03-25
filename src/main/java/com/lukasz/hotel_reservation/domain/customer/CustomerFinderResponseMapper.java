@@ -5,6 +5,7 @@ public record CustomerFinderResponseMapper() {
         return CustomerFinderResponse.builder()
                 .name(customer.getName())
                 .surname(customer.getSurname())
+                .birthDate(customer.getBirthDate())
                 .phone(customer.getContact().getPhone())
                 .email(customer.getContact().getEmail())
                 .build();

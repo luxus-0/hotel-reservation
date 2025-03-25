@@ -30,6 +30,12 @@ public class CustomerService {
                 .orElseThrow(CustomerNotFoundException::new);
     }
 
+    public Long finDocument(Long documentId){
+        return customerRepository.findAll().stream()
+                .map(Customer::getDocumentId).findAny()
+                .orElseThrow(() -> new DocumentIdNotFoundException(documentId));
+    }
+
     @Transactional
     public void create(CustomerCreatorRequest customerRequest) {
 
