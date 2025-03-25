@@ -19,7 +19,7 @@ public class ParagraphService {
     private final ReservationService reservationService;
     private final RoomService roomService;
     private final FontService fontService;
-    
+
     public Paragraph getParagraph(ParagraphRequest paragraphRequest) {
         return convertParagraph(paragraphRequest);
     }
@@ -41,11 +41,21 @@ public class ParagraphService {
 
     private int getAlignment(String alignmentParagraph) {
         switch (alignmentParagraph.toLowerCase()) {
-            case "center" -> { return Paragraph.ALIGN_CENTER; }
-            case "right" -> { return Paragraph.ALIGN_RIGHT; }
-            case "left" -> { return Paragraph.ALIGN_LEFT;}
-            case "bottom" -> { return Paragraph.ALIGN_BOTTOM; }
-            case "top" -> { return Paragraph.ALIGN_TOP; }
+            case "center" -> {
+                return Paragraph.ALIGN_CENTER;
+            }
+            case "right" -> {
+                return Paragraph.ALIGN_RIGHT;
+            }
+            case "left" -> {
+                return Paragraph.ALIGN_LEFT;
+            }
+            case "bottom" -> {
+                return Paragraph.ALIGN_BOTTOM;
+            }
+            case "top" -> {
+                return Paragraph.ALIGN_TOP;
+            }
             default -> throw new ParagraphAlignmentNotFoundException("Invalid paragraph alignment");
         }
     }

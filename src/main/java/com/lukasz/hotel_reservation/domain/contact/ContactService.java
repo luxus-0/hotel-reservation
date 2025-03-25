@@ -16,10 +16,10 @@ public class ContactService {
                 .orElseThrow(() -> new ContactNotFoundException("Contact not found"));
     }
 
-    public void save(ContactCreatorRequest contact){
+    public void save(ContactCreatorRequest contact) {
         contactRepository.save(Contact.builder()
-                        .email(contact.email())
-                        .phone(contact.phone())
+                .email(contact.email())
+                .phone(contact.phone())
                 .build());
     }
 }

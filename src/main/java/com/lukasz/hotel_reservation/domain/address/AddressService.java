@@ -10,13 +10,13 @@ import java.util.UUID;
 public class AddressService {
     private final AddressRepository addressRepository;
 
-    public AddressFinderResponse find(UUID uuid){
+    public AddressFinderResponse find(UUID uuid) {
         return addressRepository.findById(uuid)
                 .map(AddressFinderResponseMapper::toAddressFinderResponse)
                 .orElseThrow(() -> new Address.AddressNotFoundException("Address id:" + uuid + " not found"));
     }
 
-    public void create(AddressCreatorRequest address){
+    public void create(AddressCreatorRequest address) {
         Address addr = Address.builder()
                 .street(address.street())
                 .number(address.streetNumber())

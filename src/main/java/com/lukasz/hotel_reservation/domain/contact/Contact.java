@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.*;
+import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.EMAIL_REGEX;
+import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.EMAIL_REGEX_MESSAGE;
+import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.PHONE_REGEX;
+import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.PHONE_REGEX_MESSAGE;
 
 @Entity
 @Builder

@@ -15,19 +15,19 @@ import java.util.UUID;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public RoomFinderResponse find(){
+    public RoomFinderResponse find() {
         return roomRepository.findAll().stream()
                 .map(RoomFinderResponseMapper::mapToRoomFinderResponse).findAny()
                 .orElseThrow(RoomNotFoundException::new);
     }
 
-    public RoomFinderResponse find(UUID roomId){
+    public RoomFinderResponse find(UUID roomId) {
         return roomRepository.findById(roomId)
                 .map(RoomFinderResponseMapper::mapToRoomFinderResponse)
                 .orElseThrow(() -> new RoomNotFoundException(roomId));
     }
 
-    public void create(CreateRoomRequest createRoomRequest){
+    public void create(CreateRoomRequest createRoomRequest) {
         Room room = Room.builder()
                 .id(createRoomRequest.uuid())
                 .status(RoomStatus.AVAILABLE)
@@ -40,7 +40,7 @@ public class RoomService {
         log.info("Room saved to database: {}", roomSaved);
     }
 
-    public RoomTotalCostResponse calculateTotalCost(RoomTotalCostRequest request){
+    public RoomTotalCostResponse calculateTotalCost(RoomTotalCostRequest request) {
         long days = ChronoUnit.DAYS.between(request.checkIn(), request.checkOut());
         String currency = Currency.getInstance(request.currencyCode()).toString();
         BigDecimal roomTotalCost = request.pricePerNight().multiply(BigDecimal.valueOf(days));

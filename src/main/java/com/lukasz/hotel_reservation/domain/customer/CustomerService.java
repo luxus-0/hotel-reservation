@@ -13,6 +13,23 @@ import java.util.UUID;
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
+    private static Address getAddress(CustomerCreatorRequest customerRequest) {
+        return Address.builder()
+                .city(customerRequest.address().city())
+                .country(customerRequest.address().country())
+                .postalCode(customerRequest.address().postalCode())
+                .street(customerRequest.address().street())
+                .number(customerRequest.address().number())
+                .build();
+    }
+
+    private static Contact getContact(CustomerCreatorRequest customerRequest) {
+        return Contact.builder()
+                .phone(customerRequest.contact().phone())
+                .email(customerRequest.contact().email())
+                .build();
+    }
+
     public CustomerFinderResponse find() {
         return customerRepository.findAll().stream()
                 .map(customer -> CustomerFinderResponse.builder()
@@ -31,7 +48,7 @@ public class CustomerService {
                 .orElseThrow(CustomerNotFoundException::new);
     }
 
-    public Long finDocument(Long documentId){
+    public Long finDocument(Long documentId) {
         return customerRepository.findAll().stream()
                 .map(Customer::getDocumentId).findAny()
                 .orElseThrow(() -> new DocumentIdNotFoundException(documentId));
@@ -49,22 +66,5 @@ public class CustomerService {
                 .build();
 
         customerRepository.save(customer);
-    }
-
-    private static Address getAddress(CustomerCreatorRequest customerRequest) {
-        return Address.builder()
-                .city(customerRequest.address().city())
-                .country(customerRequest.address().country())
-                .postalCode(customerRequest.address().postalCode())
-                .street(customerRequest.address().street())
-                .number(customerRequest.address().number())
-                .build();
-    }
-
-    private static Contact getContact(CustomerCreatorRequest customerRequest) {
-        return Contact.builder()
-                .phone(customerRequest.contact().phone())
-                .email(customerRequest.contact().email())
-                .build();
     }
 }

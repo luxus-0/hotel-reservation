@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 
-import static com.lukasz.hotel_reservation.domain.address.AddressConstantMessage.*;
+import static com.lukasz.hotel_reservation.domain.address.AddressConstantMessage.CITY_REGEX;
+import static com.lukasz.hotel_reservation.domain.address.AddressConstantMessage.POSTAL_CODE_REGEX;
+import static com.lukasz.hotel_reservation.domain.address.AddressConstantMessage.STREET_NUMBER_REGEX;
 
 @Builder
 public record AddressFinderResponse(

@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RoomNotFoundException.class)
-    public ResponseEntity<String> handleRoomNotFound(RoomNotFoundException ex){
+    public ResponseEntity<String> handleRoomNotFound(RoomNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IncorrectReservationDate.class)
-    public ResponseEntity<String> handleIncorrectReservationDate(IncorrectReservationDate ex){
+    public ResponseEntity<String> handleIncorrectReservationDate(IncorrectReservationDate ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }

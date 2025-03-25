@@ -1,6 +1,5 @@
 package com.lukasz.hotel_reservation.domain.pdf;
 
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfPCell;

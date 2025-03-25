@@ -21,9 +21,15 @@ public class ImageService {
 
     private int getAlignment(String imageAlignment) {
         switch (imageAlignment.toLowerCase()) {
-            case "center" -> { return Image.ALIGN_CENTER; }
-            case "right" -> { return Image.RIGHT; }
-            case "left" -> { return Image.LEFT; }
+            case "center" -> {
+                return Image.ALIGN_CENTER;
+            }
+            case "right" -> {
+                return Image.RIGHT;
+            }
+            case "left" -> {
+                return Image.LEFT;
+            }
             default -> throw new TableAlignmentNotFoundException("Table alignment not found");
         }
     }

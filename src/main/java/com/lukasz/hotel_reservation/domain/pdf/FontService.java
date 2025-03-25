@@ -16,13 +16,27 @@ public class FontService {
 
     private int getStyle(String fontStyle) {
         switch (fontStyle.toLowerCase()) {
-            case "normal" -> { return Font.NORMAL; }
-            case "bold" -> { return Font.BOLD; }
-            case "italic" -> { return Font.ITALIC; }
-            case "bold italic" -> { return Font.BOLDITALIC; }
-            case "underline" -> { return Font.UNDERLINE; }
-            case "default size" -> { return Font.DEFAULTSIZE; }
-            case "undefined" -> { return Font.UNDEFINED;}
+            case "normal" -> {
+                return Font.NORMAL;
+            }
+            case "bold" -> {
+                return Font.BOLD;
+            }
+            case "italic" -> {
+                return Font.ITALIC;
+            }
+            case "bold italic" -> {
+                return Font.BOLDITALIC;
+            }
+            case "underline" -> {
+                return Font.UNDERLINE;
+            }
+            case "default size" -> {
+                return Font.DEFAULTSIZE;
+            }
+            case "undefined" -> {
+                return Font.UNDEFINED;
+            }
             default -> throw new FontStyleNotFoundException("Font style not found");
         }
     }

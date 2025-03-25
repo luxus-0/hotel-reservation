@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 public record DocumentResponse(@NotNull
                                DocumentType type,
                                @NotNull
-                               Long number){
+                               Long number) {
 
 }
