@@ -4,6 +4,7 @@ import com.lukasz.hotel_reservation.domain.address.Address;
 import com.lukasz.hotel_reservation.domain.contact.Contact;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
+import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 
 class ReservationMapper {
     static ReservationFinderResponse toReservationResponse(Reservation savedReservation) {
@@ -46,7 +47,7 @@ class ReservationMapper {
         return Room.builder()
                 .id(reservationCreatorRequest.room().id())
                 .number(reservationCreatorRequest.room().number())
-                .status(reservationCreatorRequest.room().status())
+                .status(RoomStatus.RESERVED)
                 .type(reservationCreatorRequest.room().type())
                 .build();
     }

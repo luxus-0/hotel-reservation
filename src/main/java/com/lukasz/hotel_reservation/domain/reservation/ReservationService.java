@@ -2,6 +2,7 @@ package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
 import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ReservationService {
         reservationValidator.validate(reservationCreatorRequest.checkIn(), reservationCreatorRequest.checkOut());
         Reservation reservation = Reservation.builder()
                 .id(reservationCreatorRequest.id())
-                .status(reservationCreatorRequest.status())
+                .status(ReservationStatus.REJECTED)
                 .checkIn(reservationCreatorRequest.checkIn())
                 .checkOut(reservationCreatorRequest.checkOut())
                 .room(toRoom(reservationCreatorRequest))
@@ -54,6 +55,7 @@ public class ReservationService {
                 .ifPresent(reservation -> {
 
                     reservation.setStatus(ReservationStatus.CANCELLED);
+                    reservation.getRoom().setStatus(RoomStatus.AVAILABLE);
                     reservationRepository.save(reservation);
                     log.info("Reservation id: {} has been cancelled", reservationId);
                 });

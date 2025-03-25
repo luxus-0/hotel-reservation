@@ -1,8 +1,5 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
-import com.lukasz.hotel_reservation.domain.customer.CustomerFinderResponse;
-import com.lukasz.hotel_reservation.domain.document.DocumentResponse;
-import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 

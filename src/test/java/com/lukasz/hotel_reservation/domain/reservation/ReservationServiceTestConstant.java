@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.contact.Contact;
-import com.lukasz.hotel_reservation.domain.document.DocumentType;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomStatus;
