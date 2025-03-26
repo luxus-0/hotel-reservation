@@ -1,5 +1,6 @@
-package com.lukasz.hotel_reservation.domain.reservation;
+package com.lukasz.hotel_reservation.domain.reservation.dto;
 
+import com.lukasz.hotel_reservation.domain.reservation.ReservationStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 

@@ -1,9 +1,5 @@
-package com.lukasz.hotel_reservation.domain.pdf;
+package com.lukasz.hotel_reservation.domain.pdf.dto;
 
-import com.lukasz.hotel_reservation.domain.pdf.dto.DocumentRequest;
-import com.lukasz.hotel_reservation.domain.pdf.dto.FontRequest;
-import com.lukasz.hotel_reservation.domain.pdf.dto.ImageRequest;
-import com.lukasz.hotel_reservation.domain.pdf.dto.ParagraphRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 

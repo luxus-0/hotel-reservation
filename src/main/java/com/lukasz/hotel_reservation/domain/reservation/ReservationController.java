@@ -1,7 +1,9 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
-import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationCreatorRequest;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

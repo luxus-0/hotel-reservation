@@ -5,6 +5,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
