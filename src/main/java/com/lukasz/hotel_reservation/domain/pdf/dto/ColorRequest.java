@@ -1,6 +1,10 @@
 package com.lukasz.hotel_reservation.domain.pdf.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
-public record ColorRequest(@NotNull int red, @NotNull int green, @NotNull int blue) {
+@Builder
+public record ColorRequest(@NotNull int red,
+                           @NotNull int green,
+                           @NotNull int blue) {
 }

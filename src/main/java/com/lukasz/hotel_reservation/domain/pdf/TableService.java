@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.lukasz.hotel_reservation.domain.customer.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.CustomerService;
+import com.lukasz.hotel_reservation.domain.pdf.exceptions.TableAlignmentNotFoundException;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
 import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;

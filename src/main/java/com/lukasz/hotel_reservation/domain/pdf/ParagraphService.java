@@ -5,6 +5,7 @@ import com.itextpdf.text.Paragraph;
 import com.lukasz.hotel_reservation.domain.customer.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.CustomerService;
 import com.lukasz.hotel_reservation.domain.pdf.dto.ParagraphRequest;
+import com.lukasz.hotel_reservation.domain.pdf.exceptions.ParagraphAlignmentNotFoundException;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
 import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;
@@ -21,10 +22,6 @@ public class ParagraphService {
     private final FontService fontService;
 
     public Paragraph getParagraph(ParagraphRequest paragraphRequest) {
-        return convertParagraph(paragraphRequest);
-    }
-
-    private Paragraph convertParagraph(ParagraphRequest paragraphRequest) {
         CustomerFinderResponse customer = customerService.find();
         ReservationFinderResponse reservation = reservationService.find();
         RoomFinderResponse room = roomService.find();
