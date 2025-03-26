@@ -3,6 +3,7 @@ package com.lukasz.hotel_reservation.domain.pdf;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import com.lukasz.hotel_reservation.domain.pdf.dto.ImageRequest;
+import com.lukasz.hotel_reservation.domain.pdf.exceptions.TableAlignmentNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
