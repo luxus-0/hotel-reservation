@@ -1,8 +1,9 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.address.Address;
-import com.lukasz.hotel_reservation.domain.contact.Contact;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationCreatorRequest;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 
@@ -22,14 +23,8 @@ class ReservationMapper {
                 .surname(reservationCreatorRequest.customer().surname())
                 .birthDate(reservationCreatorRequest.customer().birthDate())
                 .address(toAddress(reservationCreatorRequest))
-                .contact(toContact(reservationCreatorRequest))
-                .build();
-    }
-
-    static Contact toContact(ReservationCreatorRequest reservationCreatorRequest) {
-        return Contact.builder()
-                .phone(reservationCreatorRequest.contact().phone())
-                .email(reservationCreatorRequest.contact().email())
+                .email(reservationCreatorRequest.customer().email())
+                .phone(reservationCreatorRequest.customer().phone())
                 .build();
     }
 

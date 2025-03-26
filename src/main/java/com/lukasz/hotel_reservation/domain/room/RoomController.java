@@ -1,5 +1,9 @@
 package com.lukasz.hotel_reservation.domain.room;
 
+import com.lukasz.hotel_reservation.domain.room.dto.CreateRoomRequest;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomTotalCostRequest;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomTotalCostResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

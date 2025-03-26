@@ -1,7 +1,10 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
-import com.lukasz.hotel_reservation.domain.pdf.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationCreatorRequest;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
+import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
 import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,12 +26,12 @@ public class ReservationService {
     private final ReservationValidator reservationValidator;
 
     public void create(ReservationCreatorRequest reservationCreatorRequest, PdfGeneratorRequest pdf) throws DocumentException, IOException {
-        reservationValidator.validate(reservationCreatorRequest.checkIn(), reservationCreatorRequest.checkOut());
+        reservationValidator.validate(reservationCreatorRequest.reservation().checkIn(), reservationCreatorRequest.reservation().checkOut());
         Reservation reservation = Reservation.builder()
-                .id(reservationCreatorRequest.id())
+                .id(reservationCreatorRequest.reservation().id())
                 .status(ReservationStatus.REJECTED)
-                .checkIn(reservationCreatorRequest.checkIn())
-                .checkOut(reservationCreatorRequest.checkOut())
+                .checkIn(reservationCreatorRequest.reservation().checkIn())
+                .checkOut(reservationCreatorRequest.reservation().checkOut())
                 .room(toRoom(reservationCreatorRequest))
                 .customer(toCustomer(reservationCreatorRequest))
                 .build();
