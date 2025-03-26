@@ -1,5 +1,6 @@
 package com.lukasz.hotel_reservation.domain.pdf;
 
+import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

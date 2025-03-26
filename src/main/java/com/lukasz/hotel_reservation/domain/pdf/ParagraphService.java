@@ -2,13 +2,13 @@ package com.lukasz.hotel_reservation.domain.pdf;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.lukasz.hotel_reservation.domain.customer.CustomerFinderResponse;
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.CustomerService;
 import com.lukasz.hotel_reservation.domain.pdf.dto.ParagraphRequest;
 import com.lukasz.hotel_reservation.domain.pdf.exceptions.ParagraphAlignmentNotFoundException;
-import com.lukasz.hotel_reservation.domain.reservation.ReservationFinderResponse;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
-import com.lukasz.hotel_reservation.domain.room.RoomFinderResponse;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
 import com.lukasz.hotel_reservation.domain.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
