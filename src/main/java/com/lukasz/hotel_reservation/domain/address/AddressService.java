@@ -1,5 +1,7 @@
 package com.lukasz.hotel_reservation.domain.address;
 
+import com.lukasz.hotel_reservation.domain.address.dto.AddressCreatorRequest;
+import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class AddressService {
     public void create(AddressCreatorRequest address) {
         Address addr = Address.builder()
                 .street(address.street())
-                .number(address.streetNumber())
+                .number(address.number())
                 .postalCode(address.postalCode())
                 .city(address.city())
                 .country(address.country())

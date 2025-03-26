@@ -1,5 +1,7 @@
 package com.lukasz.hotel_reservation.domain.address;
 
+import com.lukasz.hotel_reservation.domain.address.dto.AddressCreatorRequest;
+import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

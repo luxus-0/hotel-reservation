@@ -23,7 +23,7 @@ public class Address {
     private String postalCode;
     private String city;
     private String street;
-    private int number;
+    private String number;
     private String country;
 
     public static class AddressNotFoundException extends RuntimeException {
