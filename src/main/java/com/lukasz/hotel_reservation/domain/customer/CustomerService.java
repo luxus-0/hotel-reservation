@@ -1,7 +1,10 @@
 package com.lukasz.hotel_reservation.domain.customer;
 
 import com.lukasz.hotel_reservation.domain.address.Address;
-import com.lukasz.hotel_reservation.domain.contact.Contact;
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerCreatorRequest;
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
+import com.lukasz.hotel_reservation.domain.customer.exceptions.CustomerNotFoundException;
+import com.lukasz.hotel_reservation.domain.customer.exceptions.DocumentIdNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,20 +26,13 @@ public class CustomerService {
                 .build();
     }
 
-    private static Contact getContact(CustomerCreatorRequest customerRequest) {
-        return Contact.builder()
-                .phone(customerRequest.contact().phone())
-                .email(customerRequest.contact().email())
-                .build();
-    }
-
     public CustomerFinderResponse find() {
         return customerRepository.findAll().stream()
                 .map(customer -> CustomerFinderResponse.builder()
                         .name(customer.getName())
                         .surname(customer.getSurname())
-                        .email(customer.getContact().getEmail())
-                        .phone(customer.getContact().getPhone())
+                        .email(customer.getEmail())
+                        .phone(customer.getPhone())
                         .birthDate(customer.getBirthDate())
                         .build())
                 .findAny()
@@ -60,9 +56,10 @@ public class CustomerService {
         Customer customer = Customer.builder()
                 .name(customerRequest.name())
                 .surname(customerRequest.surname())
-                .contact(getContact(customerRequest))
+                .phone(customerRequest.phone())
                 .address(getAddress(customerRequest))
                 .documentType(customerRequest.document().type())
+                .documentId(customerRequest.document().number())
                 .build();
 
         customerRepository.save(customer);

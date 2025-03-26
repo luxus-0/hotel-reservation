@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.domain.customer;
+package com.lukasz.hotel_reservation.domain.customer.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -7,14 +7,14 @@ import lombok.Builder;
 
 import java.time.LocalDate;
 
-import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.EMAIL_REGEX;
-import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.EMAIL_REGEX_MESSAGE;
-import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.PHONE_REGEX;
-import static com.lukasz.hotel_reservation.domain.contact.ContactConstantMessage.PHONE_REGEX_MESSAGE;
 import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX;
 import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX_MESSAGE;
 import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX;
 import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX_MESSAGE;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.EMAIL_REGEX;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.EMAIL_REGEX_MESSAGE;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.PHONE_REGEX;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.PHONE_REGEX_MESSAGE;
 
 @Builder
 public record CustomerFinderResponse(
