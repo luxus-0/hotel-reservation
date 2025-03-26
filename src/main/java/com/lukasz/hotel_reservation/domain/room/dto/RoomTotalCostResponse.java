@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.domain.room;
+package com.lukasz.hotel_reservation.domain.room.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

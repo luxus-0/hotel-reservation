@@ -1,5 +1,10 @@
 package com.lukasz.hotel_reservation.domain.room;
 
+import com.lukasz.hotel_reservation.domain.room.dto.CreateRoomRequest;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomTotalCostRequest;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomTotalCostResponse;
+import com.lukasz.hotel_reservation.domain.room.exceptions.RoomNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.lukasz.hotel_reservation.domain.room;
+package com.lukasz.hotel_reservation.domain.room.exceptions;
 
 import java.util.UUID;
 
