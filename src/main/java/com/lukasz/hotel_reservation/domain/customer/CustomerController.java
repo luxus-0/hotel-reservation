@@ -1,5 +1,7 @@
 package com.lukasz.hotel_reservation.domain.customer;
 
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerCreatorRequest;
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

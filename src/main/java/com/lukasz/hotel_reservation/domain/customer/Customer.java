@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.customer;
 
 import com.lukasz.hotel_reservation.domain.address.Address;
-import com.lukasz.hotel_reservation.domain.contact.Contact;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,10 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX_MESSAGE;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX_MESSAGE;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.*;
 
 @Entity
 @Builder
@@ -42,8 +38,10 @@ public class Customer {
     private LocalDate birthDate;
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Contact contact;
+    @Pattern(regexp = EMAIL_REGEX, message = EMAIL_REGEX_MESSAGE)
+    private String email;
+    @Pattern(regexp = PHONE_REGEX, message = PHONE_REGEX_MESSAGE)
+    private String phone;
     private Long documentId;
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
