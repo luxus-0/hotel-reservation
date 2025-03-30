@@ -1,0 +1,36 @@
+{
+  "reservation": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "status": "REJECTED",
+    "checkIn": "2024-12-24T14:00:00",
+    "checkOut": "2024-12-27T12:00:00"
+  },
+  "room": {
+    "id": "456e7890-f90c-34e5-b567-897725285111",
+    "number": 101,
+    "type": "SINGLE",
+    "status": "AVAILABLE"
+  },
+  "customer": {
+    "id": "789e0123-g12h-4516-c789-012345678922",
+    "name": "Jan",
+    "surname": "Kowalski",
+    "birthDate": "1990-01-01",
+    "phone": "+48123456789",
+    "email": "jan.kowalski@example.com",
+    "address": {
+      "street": "Kwiatowa",
+      "number": "5A",
+      "postalCode": "30-001",
+      "city": "Kraków",
+      "country": "Poland"
+    }
+  },
+  "address": {
+    "street": "Miodowa",
+    "number": "22",
+    "postalCode": "31-001",
+    "city": "Kraków",
+    "country": "Poland"
+  }
+}

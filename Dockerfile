@@ -1,5 +1,4 @@
-FROM openjdk:21
-WORKDIR /hotel
-COPY target/hotel-reservation-0.0.1-SNAPSHOT.jar hotel-reservation-0.0.1-SNAPSHOT.jar
-EXPOSE 8080
-CMD ["java", "-jar", "hotel-reservation-0.0.1-SNAPSHOT.jar"]
+FROM openjdk:21-jdk
+COPY ../../../target/hotel-reservation-3.3.3.jar /app/hotel-reservation.jar
+WORKDIR /app
+CMD ["java", "-jar", "hotel-reservation.jar"]

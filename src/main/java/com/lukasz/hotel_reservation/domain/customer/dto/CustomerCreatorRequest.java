@@ -5,10 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.*;
 
 public record CustomerCreatorRequest(
+        @NotNull
+        UUID id,
+
         @NotNull
         @Pattern(regexp = CUSTOMER_NAME_REGEX, message = CUSTOMER_NAME_REGEX_MESSAGE)
         String name,

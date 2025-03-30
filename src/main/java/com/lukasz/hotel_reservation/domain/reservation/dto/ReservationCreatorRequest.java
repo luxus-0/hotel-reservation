@@ -7,6 +7,5 @@ import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
 public record ReservationCreatorRequest(
         ReservationFinderResponse reservation,
         RoomFinderResponse room,
-        CustomerFinderResponse customer,
-        AddressFinderResponse address) {
+        CustomerFinderResponse customer) {
 }

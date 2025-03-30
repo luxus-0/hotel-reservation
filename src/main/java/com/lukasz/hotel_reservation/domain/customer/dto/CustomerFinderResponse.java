@@ -1,5 +1,6 @@
 package com.lukasz.hotel_reservation.domain.customer.dto;
 
+import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
@@ -22,7 +23,8 @@ public record CustomerFinderResponse(
         @NotNull @Pattern(regexp = CUSTOMER_SURNAME_REGEX, message = CUSTOMER_SURNAME_REGEX_MESSAGE) String surname,
         @NotNull @Past LocalDate birthDate,
         @NotNull @Pattern(regexp = PHONE_REGEX, message = PHONE_REGEX_MESSAGE) String phone,
-        @NotNull @Pattern(regexp = EMAIL_REGEX, message = EMAIL_REGEX_MESSAGE) String email) {
+        @NotNull @Pattern(regexp = EMAIL_REGEX, message = EMAIL_REGEX_MESSAGE) String email,
+        AddressFinderResponse address) {
 
     public String toString() {
         return ("""

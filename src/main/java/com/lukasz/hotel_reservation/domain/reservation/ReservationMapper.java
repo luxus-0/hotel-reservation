@@ -30,11 +30,11 @@ class ReservationMapper {
 
     static Address toAddress(ReservationCreatorRequest reservationCreatorRequest) {
         return Address.builder()
-                .city(reservationCreatorRequest.address().city())
-                .country(reservationCreatorRequest.address().country())
-                .postalCode(reservationCreatorRequest.address().postalCode())
-                .street(reservationCreatorRequest.address().street())
-                .number(reservationCreatorRequest.address().number())
+                .city(reservationCreatorRequest.customer().address().city())
+                .country(reservationCreatorRequest.customer().address().country())
+                .postalCode(reservationCreatorRequest.customer().address().postalCode())
+                .street(reservationCreatorRequest.customer().address().street())
+                .number(reservationCreatorRequest.customer().address().number())
                 .build();
     }
 
