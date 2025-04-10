@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.address.dto;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 

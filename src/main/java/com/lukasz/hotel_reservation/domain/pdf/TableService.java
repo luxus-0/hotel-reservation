@@ -4,15 +4,14 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.CustomerService;
+import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.pdf.dto.TableRequest;
 import com.lukasz.hotel_reservation.domain.pdf.exceptions.TableAlignmentNotFoundException;
-import com.lukasz.hotel_reservation.domain.reservation.Reservation;
-import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
-import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
+import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.room.RoomService;
+import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

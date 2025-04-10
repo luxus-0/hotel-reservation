@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FontService {
     public Font convertFont(FontRequest fontRequest) {
-        if (fontRequest == null){
+        if (fontRequest == null) {
             throw new FontNotFoundException("Font not found");
         }
         int fontStyle = getStyle(fontRequest.style());

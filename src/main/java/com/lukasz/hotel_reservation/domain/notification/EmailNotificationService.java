@@ -20,7 +20,7 @@ import java.util.Date;
 @Log4j2
 @AllArgsConstructor
 @Service
-public class EmailNotificationService implements NotificationSender {
+public class EmailNotificationService implements NotificationService {
 
     private final JavaMailSender mailSender;
 

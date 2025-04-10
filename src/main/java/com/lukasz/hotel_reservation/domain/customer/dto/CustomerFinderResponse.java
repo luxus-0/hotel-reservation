@@ -5,18 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
-import java.util.UUID;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_NAME_REGEX_MESSAGE;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.CUSTOMER_SURNAME_REGEX_MESSAGE;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.EMAIL_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.EMAIL_REGEX_MESSAGE;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.PHONE_REGEX;
-import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.PHONE_REGEX_MESSAGE;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessage.*;
 
 @Builder
 public record CustomerFinderResponse(

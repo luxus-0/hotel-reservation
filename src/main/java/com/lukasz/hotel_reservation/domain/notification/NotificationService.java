@@ -4,8 +4,9 @@ import jakarta.mail.MessagingException;
 
 import java.io.FileNotFoundException;
 
-public interface NotificationSender {
+public interface NotificationService {
 
     void send(String to, String subject, String text, String attachmentPath) throws MessagingException, FileNotFoundException;
+
     void send(String to, String subject, String text);
 }

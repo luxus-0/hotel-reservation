@@ -20,7 +20,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping
-    public ResponseEntity<List<AddressFinderResponse>> find(){
+    public ResponseEntity<List<AddressFinderResponse>> find() {
         return ResponseEntity.ok(addressService.find());
     }
 

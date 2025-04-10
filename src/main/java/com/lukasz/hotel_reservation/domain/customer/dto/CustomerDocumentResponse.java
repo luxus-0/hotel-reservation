@@ -4,8 +4,8 @@ import com.lukasz.hotel_reservation.domain.customer.DocumentType;
 import jakarta.validation.constraints.NotNull;
 
 public record CustomerDocumentResponse(@NotNull
-                               DocumentType type,
+                                       DocumentType type,
                                        @NotNull
-                               Long number) {
+                                       Long number) {
 
 }
