@@ -34,7 +34,6 @@ public class RoomService {
 
     public void create(CreateRoomRequest createRoomRequest) {
         Room room = Room.builder()
-                .id(createRoomRequest.uuid())
                 .status(RoomStatus.AVAILABLE)
                 .type(createRoomRequest.type())
                 .number(createRoomRequest.number())

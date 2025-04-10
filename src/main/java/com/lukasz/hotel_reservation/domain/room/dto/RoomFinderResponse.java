@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Builder
 public record RoomFinderResponse(
-        @NotNull UUID id,
-        @Min(1) @NotNull int number,
+        @NotNull UUID uuid,
+        @Min(1) @NotNull Integer number,
         @NotNull RoomType type,
         @NotNull RoomStatus status) {
 
@@ -21,7 +21,7 @@ public record RoomFinderResponse(
                 id: %s
                 Number: %s
                 Type: %s
-                Status: %s""").formatted(id, number, type, status);
+                Status: %s""").formatted(uuid, number, type, status);
     }
 }
 

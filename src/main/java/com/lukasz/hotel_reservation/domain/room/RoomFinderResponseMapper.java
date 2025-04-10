@@ -5,7 +5,7 @@ import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
 class RoomFinderResponseMapper {
     public static RoomFinderResponse mapToRoomFinderResponse(Room room) {
         return RoomFinderResponse.builder()
-                .id(room.getId())
+                .uuid(room.getId())
                 .number(room.getNumber())
                 .status(room.getStatus())
                 .type(room.getType())

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class RoomNotFoundException extends RuntimeException {
     public RoomNotFoundException(UUID id) {
-        super("Room id: " + id + " not found");
+        super("Room uuid: " + id + " not found");
     }
 
     public RoomNotFoundException() {
