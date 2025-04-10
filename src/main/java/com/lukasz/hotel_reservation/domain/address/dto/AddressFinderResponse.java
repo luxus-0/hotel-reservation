@@ -9,22 +9,18 @@ import static com.lukasz.hotel_reservation.domain.address.AddressConstantMessage
 
 @Builder
 public record AddressFinderResponse(
-        @NotNull
         @Pattern(regexp = STREET_REGEX, message = STREET_REGEX_MESSAGE)
         String street,
 
         @Min(1) @Pattern(regexp = STREET_NUMBER_REGEX, message = STREET_NUMBER_REGEX_MESSAGE)
         String number,
 
-        @NotNull
         @Pattern(regexp = POSTAL_CODE_REGEX, message = POSTAL_CODE_REGEX_MESSAGE)
         String postalCode,
 
-        @NotNull
         @Pattern(regexp = CITY_REGEX, message = CITY_REGEX_MESSAGE)
         String city,
 
-        @NotNull
         @Pattern(regexp = COUNTRY_REGEX, message = COUNTRY_REGEX_MESSAGE)
         String country
 ) {

@@ -5,6 +5,7 @@ import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -12,10 +13,14 @@ import java.util.UUID;
 public class AddressService {
     private final AddressRepository addressRepository;
 
+    public List<Address> findAll(){
+        return addressRepository.findAll();
+    }
+
     public AddressFinderResponse find(UUID uuid) {
         return addressRepository.findById(uuid)
                 .map(AddressFinderResponseMapper::toAddressFinderResponse)
-                .orElseThrow(() -> new Address.AddressNotFoundException("Address id:" + uuid + " not found"));
+                .orElseThrow(() -> new AddressNotFoundException("Address uuid:" + uuid + " not found"));
     }
 
     public void create(AddressCreatorRequest address) {

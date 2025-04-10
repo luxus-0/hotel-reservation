@@ -1,0 +1,352 @@
+[
+  {
+    "postalCode": "00-001",
+    "city": "Warszawa",
+    "street": "Aleje Jerozolimskie",
+    "number": "1",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "30-001",
+    "city": "Kraków",
+    "street": "Rynek Główny",
+    "number": "2",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "80-001",
+    "city": "Gdańsk",
+    "street": "Długi Targ",
+    "number": "3",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "50-001",
+    "city": "Wrocław",
+    "street": "Rynek",
+    "number": "4",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "60-001",
+    "city": "Poznań",
+    "street": "Stary Rynek",
+    "number": "5",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "10-001",
+    "city": "Olsztyn",
+    "street": "Stare Miasto",
+    "number": "6",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "20-001",
+    "city": "Lublin",
+    "street": "Krakowskie Przedmieście",
+    "number": "7",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "40-001",
+    "city": "Katowice",
+    "street": "Rynek",
+    "number": "8",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "70-001",
+    "city": "Szczecin",
+    "street": "Wały Chrobrego",
+    "number": "9",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "90-001",
+    "city": "Łódź",
+    "street": "Piotrkowska",
+    "number": "10",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "11-001",
+    "city": "Białystok",
+    "street": "Rynek Kościuszki",
+    "number": "11",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "15-001",
+    "city": "Zielona Góra",
+    "street": "Stary Rynek",
+    "number": "12",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "16-001",
+    "city": "Rzeszów",
+    "street": "Rynek",
+    "number": "13",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "18-001",
+    "city": "Kielce",
+    "street": "Sienkiewicza",
+    "number": "14",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "25-001",
+    "city": "Opole",
+    "street": "Rynek",
+    "number": "15",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "35-001",
+    "city": "Toruń",
+    "street": "Rynek Staromiejski",
+    "number": "16",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "45-001",
+    "city": "Bydgoszcz",
+    "street": "Stary Rynek",
+    "number": "17",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "55-001",
+    "city": "Gorzów Wielkopolski",
+    "street": "Stary Rynek",
+    "number": "18",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "65-001",
+    "city": "Słupsk",
+    "street": "Stary Rynek",
+    "number": "19",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "75-001",
+    "city": "Koszalin",
+    "street": "Rynek Staromiejski",
+    "number": "20",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "85-001",
+    "city": "Elbląg",
+    "street": "Stare Miasto",
+    "number": "21",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "95-001",
+    "city": "Płock",
+    "street": "Stary Rynek",
+    "number": "22",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "05-001",
+    "city": "Radom",
+    "street": "Żeromskiego",
+    "number": "23",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "12-345",
+    "city": "Warszawa",
+    "street": "Nowowiejska",
+    "number": "24",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "54-321",
+    "city": "Kraków",
+    "street": "Długa",
+    "number": "25",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "98-765",
+    "city": "Gdańsk",
+    "street": "Szeroka",
+    "number": "26",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "11-222",
+    "city": "Wrocław",
+    "street": "Oławska",
+    "number": "27",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "33-444",
+    "city": "Poznań",
+    "street": "Półwiejska",
+    "number": "28",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "55-666",
+    "city": "Łódź",
+    "street": "Włókiennicza",
+    "number": "29",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "77-888",
+    "city": "Katowice",
+    "street": "Mariacka",
+    "number": "30",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "99-000",
+    "city": "Szczecin",
+    "street": "Bogusława",
+    "number": "31",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "22-333",
+    "city": "Bydgoszcz",
+    "street": "Dworcowa",
+    "number": "32",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "44-555",
+    "city": "Lublin",
+    "street": "Lipowa",
+    "number": "33",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "66-777",
+    "city": "Gdynia",
+    "street": "Świętojańska",
+    "number": "34",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "88-999",
+    "city": "Sopot",
+    "street": "Monte Cassino",
+    "number": "35",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "11-111",
+    "city": "Toruń",
+    "street": "Szeroka",
+    "number": "36",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "33-333",
+    "city": "Olsztyn",
+    "street": "Staromiejska",
+    "number": "37",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "55-555",
+    "city": "Rzeszów",
+    "street": "3 Maja",
+    "number": "38",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "77-777",
+    "city": "Kielce",
+    "street": "Sienkiewicza",
+    "number": "39",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "99-999",
+    "city": "Opole",
+    "street": "Rynek",
+    "number": "40",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "12-121",
+    "city": "Zielona Góra",
+    "street": "Stary Rynek",
+    "number": "41",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "34-343",
+    "city": "Białystok",
+    "street": "Lipowa",
+    "number": "42",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "56-565",
+    "city": "Gorzów Wielkopolski",
+    "street": "Stary Rynek",
+    "number": "43",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "78-787",
+    "city": "Słupsk",
+    "street": "Stary Rynek",
+    "number": "44",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "90-909",
+    "city": "Koszalin",
+    "street": "Rynek Staromiejski",
+    "number": "45",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "21-212",
+    "city": "Elbląg",
+    "street": "Stare Miasto",
+    "number": "46",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "43-434",
+    "city": "Płock",
+    "street": "Stary Rynek",
+    "number": "47",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "65-656",
+    "city": "Radom",
+    "street": "Żeromskiego",
+    "number": "48",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "87-878",
+    "city": "Legnica",
+    "street": "Rynek",
+    "number": "49",
+    "country": "Polska"
+  },
+  {
+    "postalCode": "10-101",
+    "city": "Jelenia Góra",
+    "street": "Rynek",
+    "number": "50",
+    "country": "Polska"
+  }
+]
