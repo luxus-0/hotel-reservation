@@ -36,9 +36,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody @Valid CustomerCreatorRequest customer) {
+    public ResponseEntity<Void> create(@RequestBody @Valid List<CustomerCreatorRequest> customer) {
         customerService.create(customer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/document/{id}")
+    public ResponseEntity<DocumentFinderResponse> findDocument(@PathVariable @NotNull Long id){
+        return ResponseEntity.ok(customerService.findDocument(id));
     }
 
 }

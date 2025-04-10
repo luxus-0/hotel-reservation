@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.customer.dto;
 
 import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,5 +25,5 @@ public record CustomerCreatorRequest(
         String email,
 
         AddressFinderResponse address,
-        DocumentResponse document) {
+        CustomerDocumentResponse document) {
 }
