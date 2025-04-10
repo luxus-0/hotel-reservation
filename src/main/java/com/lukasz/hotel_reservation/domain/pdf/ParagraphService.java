@@ -13,6 +13,8 @@ import com.lukasz.hotel_reservation.domain.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ParagraphService {
@@ -22,8 +24,8 @@ public class ParagraphService {
     private final FontService fontService;
 
     public Paragraph getParagraph(ParagraphRequest paragraphRequest) {
-        CustomerFinderResponse customer = customerService.find();
-        ReservationFinderResponse reservation = reservationService.find();
+        List<CustomerFinderResponse> customer = customerService.find();
+        List<ReservationFinderResponse> reservation = reservationService.find();
         RoomFinderResponse room = roomService.find();
 
         Font font = fontService.convertFont(paragraphRequest.font());

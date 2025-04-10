@@ -8,12 +8,15 @@ import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.CustomerService;
 import com.lukasz.hotel_reservation.domain.pdf.dto.TableRequest;
 import com.lukasz.hotel_reservation.domain.pdf.exceptions.TableAlignmentNotFoundException;
+import com.lukasz.hotel_reservation.domain.reservation.Reservation;
 import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.ReservationService;
 import com.lukasz.hotel_reservation.domain.room.dto.RoomFinderResponse;
 import com.lukasz.hotel_reservation.domain.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -37,8 +40,8 @@ public class TableService {
         cell.setBorder(Rectangle.BOTTOM);
         table.completeRow();
 
-        CustomerFinderResponse customer = customerService.find();
-        ReservationFinderResponse reservation = reservationService.find();
+        List<CustomerFinderResponse> customer = customerService.find();
+        List<ReservationFinderResponse> reservation = reservationService.find();
         RoomFinderResponse room = roomService.find();
 
         addCell(table,
