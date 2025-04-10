@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
-import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationCreatorRequest;
 import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import jakarta.validation.Valid;
@@ -30,7 +29,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<ReservationFinderResponse> find(@NotNull @PathVariable UUID uuid) {
+    public ResponseEntity<ReservationFinderResponse> find(@PathVariable @NotNull UUID uuid) {
         ReservationFinderResponse reservation = reservationService.find(uuid);
         return ResponseEntity.ok(reservation);
     }
@@ -47,13 +46,14 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> delete(@NotNull @PathVariable UUID uuid) {
+    public ResponseEntity<Void> delete(@PathVariable @NotNull UUID uuid) {
         reservationService.cancel(uuid);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/days/{from}/{to}")
-    public void calculateDays(@PathVariable LocalDateTime from, @PathVariable LocalDateTime to) {
-        reservationService.countDays(from, to);
+    @GetMapping("/days/{fromDate}/{toDate}")
+    public ResponseEntity<Long> calculateDays(@PathVariable @NotNull LocalDateTime fromDate, @PathVariable @NotNull LocalDateTime toDate) {
+        Long days = reservationService.countDays(fromDate, toDate);
+        return ResponseEntity.ok(days);
     }
 }

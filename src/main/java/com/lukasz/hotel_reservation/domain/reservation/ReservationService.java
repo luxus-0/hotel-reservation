@@ -25,6 +25,27 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationValidator reservationValidator;
 
+    public List<ReservationFinderResponse> find() {
+        List<Reservation> reservations = reservationRepository.findAll();
+        if (reservations.isEmpty()) {
+            throw new ReservationNotFoundException("Reservation not found");
+        }
+
+        return reservations.stream()
+                .map(reservation -> ReservationFinderResponse.builder()
+                        .checkIn(reservation.getCheckIn())
+                        .checkOut(reservation.getCheckOut())
+                        .status(reservation.getStatus())
+                        .build())
+                .toList();
+    }
+
+    public ReservationFinderResponse find(UUID reservationId) {
+        return reservationRepository.findById(reservationId)
+                .map(ReservationMapper::toReservationResponse)
+                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
+    }
+
     public void create(ReservationCreatorRequest reservationCreatorRequest) throws DocumentException, IOException {
         reservationValidator.validate(reservationCreatorRequest.reservation().checkIn(), reservationCreatorRequest.reservation().checkOut());
         Reservation reservation = Reservation.builder()
@@ -38,23 +59,6 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    public List<ReservationFinderResponse> find() {
-        return reservationRepository.findAll().stream()
-                .map(reservation ->
-                        List.of(ReservationFinderResponse.builder()
-                                        .checkIn(reservation.getCheckIn())
-                                        .checkOut(reservation.getCheckOut())
-                                        .status(reservation.getStatus())
-                .build())).findAny()
-                .orElseThrow();
-    }
-
-    public ReservationFinderResponse find(UUID reservationId) {
-        return reservationRepository.findById(reservationId)
-                .map(ReservationMapper::toReservationResponse)
-                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
-    }
-
     public void cancel(UUID reservationId) {
         reservationRepository.findById(reservationId)
                 .ifPresent(reservation -> {
@@ -66,7 +70,7 @@ public class ReservationService {
                 });
     }
 
-    public long countDays(LocalDateTime checkIn, LocalDateTime checkOut) {
+    public Long countDays(LocalDateTime checkIn, LocalDateTime checkOut) {
         reservationValidator.validate(checkIn, checkOut);
         LocalDateTime timeCheckIn = checkIn.withHour(14).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime timeCheckOut = checkOut.withHour(12).withMinute(0).withSecond(0).withNano(0);
