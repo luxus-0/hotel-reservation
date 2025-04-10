@@ -20,13 +20,13 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping
-    public ResponseEntity<List<Address>> find(){
-        return new ResponseEntity<>(addressService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<AddressFinderResponse>> find(){
+        return ResponseEntity.ok(addressService.find());
     }
 
+    @GetMapping("/{uuid}")
     public ResponseEntity<AddressFinderResponse> find(@NotNull @PathVariable UUID uuid) {
-        AddressFinderResponse address = addressService.find(uuid);
-        return ResponseEntity.ok(address);
+        return ResponseEntity.ok(addressService.find(uuid));
     }
 
     @PostMapping
