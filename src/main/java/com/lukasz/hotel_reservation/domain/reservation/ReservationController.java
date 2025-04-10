@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -35,14 +36,14 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ResponseEntity<ReservationFinderResponse> find() {
-        ReservationFinderResponse reservation = reservationService.find();
+    public ResponseEntity<List<ReservationFinderResponse>> find() {
+        List<ReservationFinderResponse> reservation = reservationService.find();
         return ResponseEntity.status(OK).body(reservation);
     }
 
     @PostMapping
-    public void create(@RequestBody @Valid ReservationCreatorRequest reservationCreatorRequest, @RequestBody @Valid PdfGeneratorRequest pdfRequest) throws DocumentException, IOException {
-        reservationService.create(reservationCreatorRequest, pdfRequest);
+    public void create(@RequestBody @Valid ReservationCreatorRequest reservationCreatorRequest) throws DocumentException, IOException {
+        reservationService.create(reservationCreatorRequest);
     }
 
     @DeleteMapping("/{uuid}")

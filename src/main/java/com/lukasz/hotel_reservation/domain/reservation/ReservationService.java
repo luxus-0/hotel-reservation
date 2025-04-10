@@ -1,7 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.itextpdf.text.DocumentException;
-import com.lukasz.hotel_reservation.domain.pdf.dto.PdfGeneratorRequest;
 import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationCreatorRequest;
 import com.lukasz.hotel_reservation.domain.reservation.dto.ReservationFinderResponse;
 import com.lukasz.hotel_reservation.domain.reservation.exceptions.ReservationNotFoundException;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.UUID;
 
 import static com.lukasz.hotel_reservation.domain.reservation.ReservationMapper.toCustomer;
@@ -25,10 +25,9 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationValidator reservationValidator;
 
-    public void create(ReservationCreatorRequest reservationCreatorRequest, PdfGeneratorRequest pdf) throws DocumentException, IOException {
+    public void create(ReservationCreatorRequest reservationCreatorRequest) throws DocumentException, IOException {
         reservationValidator.validate(reservationCreatorRequest.reservation().checkIn(), reservationCreatorRequest.reservation().checkOut());
         Reservation reservation = Reservation.builder()
-                .id(reservationCreatorRequest.reservation().id())
                 .status(ReservationStatus.REJECTED)
                 .checkIn(reservationCreatorRequest.reservation().checkIn())
                 .checkOut(reservationCreatorRequest.reservation().checkOut())
@@ -39,12 +38,15 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    public ReservationFinderResponse find() {
-        return reservationRepository.findAll()
-                .stream()
-                .map(ReservationMapper::toReservationResponse)
-                .findAny()
-                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found"));
+    public List<ReservationFinderResponse> find() {
+        return reservationRepository.findAll().stream()
+                .map(reservation ->
+                        List.of(ReservationFinderResponse.builder()
+                                        .checkIn(reservation.getCheckIn())
+                                        .checkOut(reservation.getCheckOut())
+                                        .status(reservation.getStatus())
+                .build())).findAny()
+                .orElseThrow();
     }
 
     public ReservationFinderResponse find(UUID reservationId) {
@@ -60,7 +62,7 @@ public class ReservationService {
                     reservation.setStatus(ReservationStatus.CANCELLED);
                     reservation.getRoom().setStatus(RoomStatus.AVAILABLE);
                     reservationRepository.save(reservation);
-                    log.info("Reservation id: {} has been cancelled", reservationId);
+                    log.info("Reservation uuid: {} has been cancelled", reservationId);
                 });
     }
 

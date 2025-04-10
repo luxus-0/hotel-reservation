@@ -10,7 +10,6 @@ import com.lukasz.hotel_reservation.domain.room.RoomStatus;
 class ReservationMapper {
     static ReservationFinderResponse toReservationResponse(Reservation savedReservation) {
         return ReservationFinderResponse.builder()
-                .id(savedReservation.getId())
                 .status(savedReservation.getStatus())
                 .checkIn(savedReservation.getCheckIn())
                 .checkOut(savedReservation.getCheckOut())
@@ -19,12 +18,11 @@ class ReservationMapper {
 
     static Customer toCustomer(ReservationCreatorRequest reservationCreatorRequest) {
         return Customer.builder()
+                .id(reservationCreatorRequest.customer().uuid())
                 .name(reservationCreatorRequest.customer().name())
                 .surname(reservationCreatorRequest.customer().surname())
                 .birthDate(reservationCreatorRequest.customer().birthDate())
                 .address(toAddress(reservationCreatorRequest))
-                .email(reservationCreatorRequest.customer().email())
-                .phone(reservationCreatorRequest.customer().phone())
                 .build();
     }
 
@@ -40,7 +38,7 @@ class ReservationMapper {
 
     static Room toRoom(ReservationCreatorRequest reservationCreatorRequest) {
         return Room.builder()
-                .id(reservationCreatorRequest.room().id())
+                .id(reservationCreatorRequest.room().uuid())
                 .number(reservationCreatorRequest.room().number())
                 .status(RoomStatus.RESERVED)
                 .type(reservationCreatorRequest.room().type())

@@ -2,17 +2,7 @@ package com.lukasz.hotel_reservation.domain.reservation;
 
 import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import lombok.AllArgsConstructor;
@@ -42,13 +32,13 @@ import java.util.UUID;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID uuid;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
     @FutureOrPresent
