@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,8 +30,8 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public ResponseEntity<CustomerFinderResponse> find() {
-        CustomerFinderResponse customer = customerService.find();
+    public ResponseEntity<List<CustomerFinderResponse>> find() {
+        List<CustomerFinderResponse> customer = customerService.find();
         return ResponseEntity.ok(customer);
     }
 
@@ -39,4 +40,5 @@ public class CustomerController {
         customerService.create(customer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 }

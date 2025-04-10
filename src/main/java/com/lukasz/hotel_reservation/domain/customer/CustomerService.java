@@ -1,6 +1,7 @@
 package com.lukasz.hotel_reservation.domain.customer;
 
 import com.lukasz.hotel_reservation.domain.address.Address;
+import com.lukasz.hotel_reservation.domain.address.dto.AddressFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.dto.CustomerCreatorRequest;
 import com.lukasz.hotel_reservation.domain.customer.dto.CustomerFinderResponse;
 import com.lukasz.hotel_reservation.domain.customer.exceptions.CustomerNotFoundException;
@@ -9,32 +10,28 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
+import static com.lukasz.hotel_reservation.domain.customer.CustomerMapper.getAddress;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
-    private static Address getAddress(CustomerCreatorRequest customerRequest) {
-        return Address.builder()
-                .city(customerRequest.address().city())
-                .country(customerRequest.address().country())
-                .postalCode(customerRequest.address().postalCode())
-                .street(customerRequest.address().street())
-                .number(customerRequest.address().number())
-                .build();
-    }
 
-    public CustomerFinderResponse find() {
+    public List<CustomerFinderResponse> find() {
         return customerRepository.findAll().stream()
-                .map(customer -> CustomerFinderResponse.builder()
+                .map(customer -> List.of(CustomerFinderResponse.builder()
                         .name(customer.getName())
                         .surname(customer.getSurname())
                         .email(customer.getEmail())
                         .phone(customer.getPhone())
                         .birthDate(customer.getBirthDate())
-                        .build())
+                        .address(getAddress(customer))
+                        .build()))
                 .findAny()
                 .orElseThrow(CustomerNotFoundException::new);
     }
@@ -51,17 +48,10 @@ public class CustomerService {
     }
 
     @Transactional
-    public void create(CustomerCreatorRequest customerRequest) {
+    public void create(List<CustomerCreatorRequest> customersRequest) {
 
-        Customer customer = Customer.builder()
-                .name(customerRequest.name())
-                .surname(customerRequest.surname())
-                .phone(customerRequest.phone())
-                .address(getAddress(customerRequest))
-                .documentType(customerRequest.document().type())
-                .documentId(customerRequest.document().number())
-                .build();
+        Optional<CustomerCreatorRequest> customers = customersRequest.stream().findAny()
 
-        customerRepository.save(customer);
+        customerRepository.saveAll(customers);
     }
 }

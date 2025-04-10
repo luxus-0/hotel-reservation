@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
+import java.util.UUID;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ import static com.lukasz.hotel_reservation.domain.customer.CustomerConstantMessa
 
 @Builder
 public record CustomerFinderResponse(
+        @NotNull UUID uuid,
         @NotNull @Pattern(regexp = CUSTOMER_NAME_REGEX, message = CUSTOMER_NAME_REGEX_MESSAGE) String name,
         @NotNull @Pattern(regexp = CUSTOMER_SURNAME_REGEX, message = CUSTOMER_SURNAME_REGEX_MESSAGE) String surname,
         @NotNull @Past LocalDate birthDate,
