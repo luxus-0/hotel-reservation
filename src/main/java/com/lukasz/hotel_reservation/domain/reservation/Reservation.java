@@ -29,6 +29,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="reservation")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
