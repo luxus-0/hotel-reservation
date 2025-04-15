@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
-import static com.lukasz.hotel_reservation.domain.customer.CustomerMapper.mapToAddress;
+import static com.lukasz.hotel_reservation.domain.customer.CustomerMapper.toCustomers;
 
 @Service
 @AllArgsConstructor
@@ -22,25 +22,16 @@ public class CustomerService {
     public List<CustomerFinderResponse> find() {
         List<Customer> customers = customerRepository.findAll();
         if (customers.isEmpty()) {
-            throw new CustomerNotFoundException();
+            throw new CustomerNotFoundException("Customer not found");
         }
 
-        return customers.stream()
-                .map(customer -> CustomerFinderResponse.builder()
-                        .uuid(customer.getId())
-                        .name(customer.getName())
-                        .surname(customer.getSurname())
-                        .email(customer.getEmail())
-                        .phone(customer.getPhone())
-                        .birthDate(customer.getBirthDate())
-                        .address(mapToAddress(customer))
-                        .build())
-                .toList();
+        return toCustomers(customers);
     }
 
     public CustomerFinderResponse find(UUID uuid) {
-        return customerRepository.findById(uuid).map(CustomerFinderResponseMapper::mapToCustomerFinderResponse)
-                .orElseThrow(CustomerNotFoundException::new);
+        return customerRepository.findById(uuid)
+                .map(CustomerMapper::toCustomer)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
     }
 
     public DocumentFinderResponse findDocument(Long documentId) {
@@ -53,7 +44,7 @@ public class CustomerService {
     @Transactional
     public void create(List<CustomerCreatorRequest> customersRequest) {
         List<Customer> customers = customersRequest.stream()
-                .map(CustomerMapper::mapToCustomer)
+                .map(CustomerMapper::toCustomer)
                 .toList();
 
         customerRepository.saveAll(customers);

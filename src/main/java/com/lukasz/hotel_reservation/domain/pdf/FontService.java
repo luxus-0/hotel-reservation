@@ -4,7 +4,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.lukasz.hotel_reservation.domain.pdf.dto.FontRequest;
-import com.lukasz.hotel_reservation.domain.pdf.dto.FontStyleNotFoundException;
+import com.lukasz.hotel_reservation.domain.pdf.exceptions.FontStyleNotFoundException;
 import com.lukasz.hotel_reservation.domain.pdf.exceptions.FontNotFoundException;
 import org.springframework.stereotype.Service;
 
