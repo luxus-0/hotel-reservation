@@ -1,5 +1,6 @@
 package com.lukasz.hotel_reservation.domain.reservation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lukasz.hotel_reservation.domain.customer.Customer;
 import com.lukasz.hotel_reservation.domain.room.Room;
 import jakarta.persistence.*;
@@ -36,11 +37,11 @@ public class Reservation {
     private UUID uuid;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "room_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
     private Room room;
     @FutureOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy")
@@ -50,6 +51,7 @@ public class Reservation {
     private LocalDateTime checkOut;
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @JsonIgnore
     @Lob
     @JdbcTypeCode(SqlTypes.BINARY)
     @Column(name = "reservation_pdf", columnDefinition = "bytea", nullable = false)

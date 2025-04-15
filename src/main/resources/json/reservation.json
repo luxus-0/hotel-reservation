@@ -1,36 +1,82 @@
 {
   "reservation": {
-    "id": "123e4567-e89b-12d3-a456-426614174000",
-    "status": "REJECTED",
-    "checkIn": "2024-12-24T14:00:00",
-    "checkOut": "2024-12-27T12:00:00"
+    "status": "RESERVED",
+    "checkIn": "2025-05-10T14:00:00",
+    "checkOut": "2025-05-15T11:00:00"
   },
   "room": {
-    "id": "456e7890-f90c-34e5-b567-897725285111",
     "number": 101,
-    "type": "SINGLE",
+    "type": "DOUBLE",
     "status": "AVAILABLE"
   },
   "customer": {
-    "id": "789e0123-g12h-4516-c789-012345678922",
     "name": "Jan",
     "surname": "Kowalski",
-    "birthDate": "1990-01-01",
+    "birthDate": "1990-01-15",
     "phone": "+48123456789",
     "email": "jan.kowalski@example.com",
     "address": {
-      "street": "Kwiatowa",
-      "number": "5A",
+      "street": "Kościuszki",
+      "number": "12A",
       "postalCode": "30-001",
       "city": "Kraków",
-      "country": "Poland"
+      "country": "Polska"
     }
   },
-  "address": {
-    "street": "Miodowa",
-    "number": "22",
-    "postalCode": "31-001",
-    "city": "Kraków",
-    "country": "Poland"
+  "pdfGeneratorRequest": {
+    "font": {
+      "family": "Helvetica",
+      "size": 12,
+      "style": "NORMAL",
+      "color": {
+        "red": 0,
+        "green": 0,
+        "blue": 0
+      }
+    },
+    "document": {
+      "pageSize": "A4",
+      "marginLeft": 36,
+      "marginRight": 36,
+      "marginTop": 36,
+      "marginBottom": 36
+    },
+    "paragraph": {
+      "alignment": "LEFT",
+      "leading": 14,
+      "spacingBefore": 10,
+      "spacingAfter": 10,
+      "font": {
+        "family": "Helvetica",
+        "size": 12,
+        "style": "NORMAL",
+        "color": {
+          "red": 0,
+          "green": 0,
+          "blue": 0
+        }
+      }
+    },
+    "table": {
+      "numberOfColumns": 3,
+      "spacingBefore": 10,
+      "spacingAfter": 10,
+      "alignment": "CENTER",
+      "totalWidth": 500,
+      "totalHeight": 300,
+      "cell": {
+        "label": "Imię i nazwisko",
+        "value": "Jan Kowalski"
+      }
+    },
+    "image": {
+      "src": "https://images.pexels.com/photos/4223678/pexels-photo-4223678.jpeg",
+      "width": 200,
+      "height": 100,
+      "alignment": "CENTER",
+      "xPosition": 50,
+      "yPosition": 750
+    },
+    "title": "Hotel Reservation Confirmation"
   }
 }
