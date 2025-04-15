@@ -18,7 +18,7 @@ public class AddressService {
     public List<AddressFinderResponse> find() {
         List<Address> addresses = addressRepository.findAll();
         if (addresses.isEmpty()) {
-            throw new CustomerNotFoundException();
+            throw new CustomerNotFoundException("Customer not found");
         }
 
         return addresses.stream()
