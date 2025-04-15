@@ -1,0 +1,474 @@
+[
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-01T14:00:00",
+      "checkOut": "2025-06-05T11:00:00"
+    },
+    "room": {
+      "number": 101,
+      "type": "DOUBLE",
+      "status": "AVAILABLE"
+    },
+    "customer": {
+      "name": "Jan",
+      "surname": "Kowalski",
+      "birthDate": "1990-01-15",
+      "phone": "+48123456789",
+      "email": "jan.kowalski@example.com",
+      "address": {
+        "street": "Kościuszki",
+        "number": "12A",
+        "postalCode": "30-001",
+        "city": "Kraków",
+        "country": "Polska"
+      }
+    },
+    "pdf": {
+      "font": {
+        "family": "Helvetica",
+        "size": 12,
+        "style": "NORMAL",
+        "color": {
+          "red": 0,
+          "green": 0,
+          "blue": 0
+        }
+      },
+      "document": {
+        "pageSize": "A4",
+        "marginLeft": 36,
+        "marginRight": 36,
+        "marginTop": 36,
+        "marginBottom": 36
+      },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": {
+          "family": "Helvetica",
+          "size": 12,
+          "style": "NORMAL",
+          "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 0
+          }
+        }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": {
+          "label": "Imię i nazwisko",
+          "value": "Jan Kowalski"
+        }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Hotel Reservation Confirmation"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-10T14:00:00",
+      "checkOut": "2025-06-15T11:00:00"
+    },
+    "room": {
+      "number": 202,
+      "type": "SINGLE",
+      "status": "AVAILABLE"
+    },
+    "customer": {
+      "name": "Anna",
+      "surname": "Nowak",
+      "birthDate": "1988-05-20",
+      "phone": "+48555123456",
+      "email": "anna.nowak@example.com",
+      "address": {
+        "street": "Mickiewicza",
+        "number": "8B",
+        "postalCode": "31-120",
+        "city": "Warszawa",
+        "country": "Polska"
+      }
+    },
+    "pdf": {
+      "font": {
+        "family": "Times New Roman",
+        "size": 11,
+        "style": "ITALIC",
+        "color": {
+          "red": 50,
+          "green": 50,
+          "blue": 50
+        }
+      },
+      "document": {
+        "pageSize": "A4",
+        "marginLeft": 40,
+        "marginRight": 40,
+        "marginTop": 40,
+        "marginBottom": 40
+      },
+      "paragraph": {
+        "alignment": "RIGHT",
+        "leading": 16,
+        "spacingBefore": 12,
+        "spacingAfter": 12,
+        "font": {
+          "family": "Times New Roman",
+          "size": 11,
+          "style": "ITALIC",
+          "color": {
+            "red": 50,
+            "green": 50,
+            "blue": 50
+          }
+        }
+      },
+      "table": {
+        "numberOfColumns": 2,
+        "spacingBefore": 12,
+        "spacingAfter": 12,
+        "alignment": "LEFT",
+        "totalWidth": 450,
+        "totalHeight": 250,
+        "cell": {
+          "label": "Data przyjazdu",
+          "value": "2025-06-10"
+        }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 180,
+        "height": 90,
+        "alignment": "CENTER",
+        "xPosition": 60,
+        "yPosition": 740
+      },
+      "title": "Potwierdzenie Rezerwacji Hotelowej"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-20T14:00:00",
+      "checkOut": "2025-06-24T11:00:00"
+    },
+    "room": {
+      "number": 301,
+      "type": "SINGLE",
+      "status": "AVAILABLE"
+    },
+    "customer": {
+      "name": "Piotr",
+      "surname": "Zieliński",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678000",
+      "email": "piotr.zielinski@example.com",
+      "address": {
+        "street": "Główna",
+        "number": "10",
+        "postalCode": "00-100",
+        "city": "Gdańsk",
+        "country": "Polska"
+      }
+    },
+    "pdf": {
+      "font": {
+        "family": "Arial",
+        "size": 12,
+        "style": "NORMAL",
+        "color": { "red": 0, "green": 0, "blue": 0 }
+      },
+      "document": {
+        "pageSize": "A4",
+        "marginLeft": 36,
+        "marginRight": 36,
+        "marginTop": 36,
+        "marginBottom": 36
+      },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": {
+          "family": "Arial",
+          "size": 12,
+          "style": "NORMAL",
+          "color": { "red": 0, "green": 0, "blue": 0 }
+        }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Piotr Zieliński" }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-22T14:00:00",
+      "checkOut": "2025-06-26T11:00:00"
+    },
+    "room": {
+      "number": 302,
+      "type": "DOUBLE",
+      "status": "AVAILABLE"
+    },
+    "customer": {
+      "name": "Maria",
+      "surname": "Kamińska",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678001",
+      "email": "maria.kaminska@example.com",
+      "address": {
+        "street": "Główna",
+        "number": "11",
+        "postalCode": "00-100",
+        "city": "Poznań",
+        "country": "Polska"
+      }
+    },
+    "pdf": {
+      "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } },
+      "document": { "pageSize": "A4", "marginLeft": 36, "marginRight": 36, "marginTop": 36, "marginBottom": 36 },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Maria Kamińska" }
+      },
+      "image": {
+        "src": "https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-24T14:00:00",
+      "checkOut": "2025-06-28T11:00:00"
+    },
+    "room": { "number": 303, "type": "TRIPLE", "status": "AVAILABLE" },
+    "customer": {
+      "name": "Tomasz",
+      "surname": "Lewandowski",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678002",
+      "email": "tomasz.lewandowski@example.com",
+      "address": {
+        "street": "Główna",
+        "number": "12",
+        "postalCode": "00-100",
+        "city": "Wrocław",
+        "country": "Polska"
+      }
+    },
+    "pdf": {
+      "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } },
+      "document": { "pageSize": "A4", "marginLeft": 36, "marginRight": 36, "marginTop": 36, "marginBottom": 36 },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Tomasz Lewandowski" }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  },
+  {
+    "reservation": { "status": "RESERVED", "checkIn": "2025-06-26T14:00:00", "checkOut": "2025-06-30T11:00:00" },
+    "room": { "number": 304, "type": "SINGLE", "status": "AVAILABLE" },
+    "customer": {
+      "name": "Julia",
+      "surname": "Kowalczyk",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678003",
+      "email": "julia.kowalczyk@example.com",
+      "address": { "street": "Główna", "number": "13", "postalCode": "00-100", "city": "Szczecin", "country": "Polska" }
+    },
+    "pdfGeneratorRequest": {
+      "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } },
+      "document": { "pageSize": "A4", "marginLeft": 36, "marginRight": 36, "marginTop": 36, "marginBottom": 36 },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Julia Kowalczyk" }
+      },
+      "image": {
+        "src": "https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-28T14:00:00",
+      "checkOut": "2025-07-02T11:00:00"
+    },
+    "room": { "number": 305, "type": "DOUBLE", "status": "AVAILABLE" },
+    "customer": {
+      "name": "Kamil",
+      "surname": "Wójcik",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678004",
+      "email": "kamil.wojcik@example.com",
+      "address": { "street": "Główna", "number": "14", "postalCode": "00-100", "city": "Lublin", "country": "Polska" }
+    },
+    "pdf": {
+      "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } },
+      "document": { "pageSize": "A4", "marginLeft": 36, "marginRight": 36, "marginTop": 36, "marginBottom": 36 },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Kamil Wójcik" }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  },
+  {
+    "reservation": {
+      "status": "RESERVED",
+      "checkIn": "2025-06-30T14:00:00",
+      "checkOut": "2025-07-04T11:00:00"
+    },
+    "room": { "number": 306, "type": "TRIPLE", "status": "AVAILABLE" },
+    "customer": {
+      "name": "Zofia",
+      "surname": "Dąbrowska",
+      "birthDate": "1990-01-01",
+      "phone": "+48785678005",
+      "email": "zofia.dabrowska@example.com",
+      "address": { "street": "Główna", "number": "15", "postalCode": "00-100", "city": "Warszawa", "country": "Polska" }
+    },
+    "pdf": {
+      "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } },
+      "document": { "pageSize": "A4", "marginLeft": 36, "marginRight": 36, "marginTop": 36, "marginBottom": 36 },
+      "paragraph": {
+        "alignment": "LEFT",
+        "leading": 14,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "font": { "family": "Arial", "size": 12, "style": "NORMAL", "color": { "red": 0, "green": 0, "blue": 0 } }
+      },
+      "table": {
+        "numberOfColumns": 3,
+        "spacingBefore": 10,
+        "spacingAfter": 10,
+        "alignment": "CENTER",
+        "totalWidth": 500,
+        "totalHeight": 300,
+        "cell": { "label": "Gość", "value": "Zofia Dąbrowska" }
+      },
+      "image": {
+        "src": "image/hotel.jpg",
+        "width": 200,
+        "height": 100,
+        "alignment": "CENTER",
+        "xPosition": 50,
+        "yPosition": 750
+      },
+      "title": "Potwierdzenie Rezerwacji"
+    }
+  }
+]
