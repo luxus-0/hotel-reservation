@@ -18,10 +18,9 @@ public record RoomFinderResponse(
     public String toString() {
         return ("""
                 \nRoom
-                id: %s
                 Number: %s
                 Type: %s
-                Status: %s""").formatted(uuid, number, type, status);
+                Status: %s""").formatted(number, type, status);
     }
 }
 

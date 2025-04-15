@@ -26,6 +26,5 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
     @Version
-    @Min(1)
     private Long version;
 }
